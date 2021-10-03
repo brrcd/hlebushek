@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">hlebushek</string>
+    <string name="text_portfolio_total_value">Portfolio total value</string>
+    <string name="text_portfolio_free_currency_value">Portfolio free currency value</string>
 </resources>

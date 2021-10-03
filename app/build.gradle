@@ -21,8 +21,11 @@ android {
     buildTypes.each {
         Properties properties = new Properties()
         properties.load(project.rootProject.file("sandboxapi.properties").newDataInputStream())
-        def apiKey = properties.getProperty("SANDBOX_API", "")
-        it.buildConfigField "String", "SANDBOX_API", apiKey
+        def sandboxApiKey = properties.getProperty("SANDBOX_API", "")
+        it.buildConfigField "String", "SANDBOX_API", sandboxApiKey
+        properties.load(project.rootProject.file("traderapi.properties").newDataInputStream())
+        def traderApiKey = properties.getProperty("TRADER_API", "")
+        it.buildConfigField "String", "TRADER_API", traderApiKey
     }
     buildTypes {
         release {

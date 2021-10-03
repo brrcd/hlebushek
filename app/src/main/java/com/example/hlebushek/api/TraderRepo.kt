@@ -3,13 +3,13 @@ package com.example.hlebushek.api
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object SandboxRepo {
-    val api: SandboxApi by lazy {
+object TraderRepo {
+    val api: TraderApi by lazy {
         val adapter = Retrofit.Builder()
-            .baseUrl(ApiUtils.sandboxUrl)
+            .baseUrl(ApiUtils.traderUrl)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(ApiUtils.getSandboxHttpClient())
+            .client(ApiUtils.getTraderHttpClient())
             .build()
-        adapter.create(SandboxApi::class.java)
+        adapter.create(TraderApi::class.java)
     }
 }

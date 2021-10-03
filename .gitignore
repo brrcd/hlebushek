@@ -13,4 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
-sandbox.properties
+sandboxapi.properties
+traderapi.properties

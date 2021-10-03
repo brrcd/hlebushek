@@ -6,15 +6,21 @@ import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
 object ApiUtils {
-    private const val baseUrlMainPart = "https://api.themoviedb.org/"
-    private const val baseUrlVersion = "3"
-    private const val baseUrlApiKey = BuildConfig.SANDBOX_API
-    const val baseUrl = "$baseUrlMainPart$baseUrlVersion/"
+    private const val sandboxMainUrlPart = "https://api-invest.tinkoff.ru/openapi/sandbox"
+    private const val traderMainUrlPart = "https://api-invest.tinkoff.ru/openapi"
+    private const val sandboxApi = BuildConfig.SANDBOX_API
+    private const val traderApi = BuildConfig.TRADER_API
+    const val sandboxUrl = "$sandboxMainUrlPart/"
+    const val traderUrl = "$traderMainUrlPart/"
 
     // TODO remove this interceptor
     private val interceptor = HttpLoggingInterceptor()
 
-    fun getOkHttpClient(): OkHttpClient {
+    fun getSandboxHttpClient() = getOkHttpClient(sandboxApi)
+
+    fun getTraderHttpClient() = getOkHttpClient(traderApi)
+
+    private fun getOkHttpClient(apiKey: String): OkHttpClient {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         val httpClient = OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
@@ -22,12 +28,8 @@ object ApiUtils {
             .writeTimeout(10, TimeUnit.SECONDS)
             .addInterceptor { chain ->
                 val origin = chain.request()
-                val originUrl = origin.url
-                val url = originUrl.newBuilder()
-                    .addQueryParameter("api_key", baseUrlApiKey)
-                    .build()
                 val requestBuilder = origin.newBuilder()
-                    .url(url)
+                    .addHeader("Authorization", "Bearer $apiKey")
                 val request = requestBuilder.build()
                 chain.proceed(request)
             }
