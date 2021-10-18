@@ -35,7 +35,7 @@ class FragmentPortfolio : Fragment() {
     private fun renderData(appState: AppState) = with(binding) {
         when (appState) {
             is AppState.Success -> {
-                textViewPortfolioTotalValue.text = appState.portfolio.totalValue.toString()
+                textViewPortfolioTotalValue.text = appState.payloadDTO.portfolio?.totalValue.toString()
             }
             is AppState.Error -> {
 

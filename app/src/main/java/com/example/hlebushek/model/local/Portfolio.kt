@@ -1,4 +1,4 @@
-package com.example.hlebushek.model
+package com.example.hlebushek.model.local
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
