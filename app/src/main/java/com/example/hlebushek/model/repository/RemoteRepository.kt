@@ -2,6 +2,6 @@ package com.example.hlebushek.model.repository
 
 import com.example.hlebushek.model.ApiResponse
 
-interface Repository {
+interface RemoteRepository {
     fun getPortfolio(): ApiResponse?
 }

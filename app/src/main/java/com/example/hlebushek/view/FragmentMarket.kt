@@ -28,6 +28,11 @@ class FragmentMarket: Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun renderData(appState: AppState) = with(binding) {
         when (appState) {
             is AppState.Success -> {
