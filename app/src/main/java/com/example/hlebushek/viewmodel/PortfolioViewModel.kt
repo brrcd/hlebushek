@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class FragmentPortfolioViewModel(private val remoteRepository: RemoteRepository) : ViewModel() {
+class PortfolioViewModel(private val remoteRepository: RemoteRepository) : ViewModel() {
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
     private var job: Job? = null
 

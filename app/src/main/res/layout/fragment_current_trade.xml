@@ -20,6 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_small"
         android:text="@string/previous_day_lowest_price"
-        android:textSize="@dimen/text_size_small"/>
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

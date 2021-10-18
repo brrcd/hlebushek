@@ -3,7 +3,7 @@
     <string name="text_portfolio_total_value">Portfolio total value</string>
     <string name="text_portfolio_free_currency_value">Portfolio free currency value</string>
     <string name="button_text_find_stock">Find stock</string>
-    <string name="stock_name">Stock name</string>
+    <string name="stock_name">STOCK</string>
     <string name="current_price">1000RUB</string>
     <string name="buy_stock">Buy stock</string>
     <string name="sell_stock">Sell stock</string>
@@ -16,4 +16,8 @@
     <string name="stock_difference">1RUB</string>
     <string name="add_stock">Add stock</string>
     <string name="previous_day_lowest_price">967RUB</string>
+    <string name="previous_day_highest_price">1045RUB</string>
+    <string name="buy_price">998RUB</string>
+    <string name="sell_price">993RUB</string>
+    <string name="spread_and_commission">13RUB</string>
 </resources>

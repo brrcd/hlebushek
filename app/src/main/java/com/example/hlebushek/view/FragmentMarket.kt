@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.hlebushek.AppState
 import com.example.hlebushek.databinding.FragmentMarketBinding
-import com.example.hlebushek.viewmodel.FragmentMarketViewModel
+import com.example.hlebushek.viewmodel.MarketViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentMarket: Fragment() {
-    private val viewModel: FragmentMarketViewModel by viewModel()
+    private val viewModel: MarketViewModel by viewModel()
     private var _binding: FragmentMarketBinding? = null
     private val binding get() = _binding!!
 
