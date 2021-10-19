@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.hlebushek.AppState
+import com.example.hlebushek.adapters.StockMarketAdapter
 import com.example.hlebushek.databinding.FragmentMarketBinding
 import com.example.hlebushek.viewmodel.MarketViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -14,6 +15,7 @@ class FragmentMarket: Fragment() {
     private val viewModel: MarketViewModel by viewModel()
     private var _binding: FragmentMarketBinding? = null
     private val binding get() = _binding!!
+    private var adapter = StockMarketAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +28,8 @@ class FragmentMarket: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it)} )
+        viewModel.getListOfStockMarket()
     }
 
     override fun onDestroyView() {
@@ -36,7 +40,8 @@ class FragmentMarket: Fragment() {
     private fun renderData(appState: AppState) = with(binding) {
         when (appState) {
             is AppState.Success -> {
-
+                appState.payloadDTO.stockList?.let { adapter.setStockList(it) }
+                recyclerView.adapter = adapter
             }
             is AppState.Error -> {
 

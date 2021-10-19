@@ -32,12 +32,13 @@ class PortfolioViewModel(private val remoteRepository: RemoteRepository) : ViewM
                 liveDataToObserve.postValue(
                     AppState.Success(
                         PayloadDTO(
-                            Portfolio(totalValue, null)
+                            Portfolio(totalValue)
                         )
                     )
                 )
+            } else {
+                //TODO response error handling
             }
-
         }
     }
 
