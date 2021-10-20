@@ -6,17 +6,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
 object ApiUtils {
-    private const val sandboxMainUrlPart = "https://api-invest.tinkoff.ru/openapi/sandbox"
     private const val traderMainUrlPart = "https://api-invest.tinkoff.ru/openapi"
-    private const val sandboxApi = BuildConfig.SANDBOX_API
     private const val traderApi = BuildConfig.TRADER_API
-    const val sandboxUrl = "$sandboxMainUrlPart/"
     const val traderUrl = "$traderMainUrlPart/"
 
     // TODO remove this interceptor
     private val interceptor = HttpLoggingInterceptor()
-
-    fun getSandboxHttpClient() = getOkHttpClient(sandboxApi)
 
     fun getTraderHttpClient() = getOkHttpClient(traderApi)
 

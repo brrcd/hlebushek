@@ -9,6 +9,7 @@ data class Payload(
     val positions: List<Stock>?,
     val currencies: List<Currency>?,
     val operations: List<Operation>?,
+    val candles: List<Candles>?,
     val stock: Stock?,
     val message: String?,
     val code: String?

@@ -11,4 +11,8 @@ class RemoteRepositoryImpl : RemoteRepository {
     override fun getListOfStockMarket(): ApiResponse? {
         return TraderRepo.api.getListOfStocks().execute().body()
     }
+
+    override fun getCandleByFigi(figi: String, from: String, to: String, interval: String): ApiResponse? {
+        return TraderRepo.api.getCandleByFigi(figi, from, to, interval).execute().body()
+    }
 }

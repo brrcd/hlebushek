@@ -5,4 +5,5 @@ import com.example.hlebushek.model.remote.ApiResponse
 interface RemoteRepository {
     fun getPortfolio(): ApiResponse?
     fun getListOfStockMarket(): ApiResponse?
+    fun getCandleByFigi(figi: String, from: String, to: String, interval: String): ApiResponse?
 }

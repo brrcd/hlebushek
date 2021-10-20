@@ -41,6 +41,7 @@ class StockMarketAdapter : RecyclerView.Adapter<StockMarketAdapter.StockViewHold
         fun bind(stock: Stock) = with(binding) {
             stockName.text = stock.name
             currentSpreadAndCommission.text = "${stock.minPriceIncrement}"
+            currentPrice.text = "${stock.minQuantity}"
         }
     }
 }

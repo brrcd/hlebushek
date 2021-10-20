@@ -7,5 +7,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class PayloadDTO(
     val portfolio: Portfolio? = null,
-    val stockList: List<Stock>? = null
+    val stockList: List<Stock>? = null,
+    val currentPrice: String? = null
 ) : Parcelable
