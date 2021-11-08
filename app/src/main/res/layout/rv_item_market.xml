@@ -73,7 +73,7 @@
         android:id="@+id/buy_price_icon"
         android:layout_width="7dp"
         android:layout_height="7dp"
-        android:src="@drawable/ic_buy"
+        android:src="@drawable/ic_dollar_sign_buy"
         app:layout_constraintTop_toTopOf="@id/stock_name"
         app:layout_constraintEnd_toStartOf="@id/buy_price"/>
 
@@ -81,7 +81,7 @@
         android:id="@+id/sell_price_icon"
         android:layout_width="7dp"
         android:layout_height="7dp"
-        android:src="@drawable/ic_sell"
+        android:src="@drawable/ic_dollar_sign_sell"
         app:layout_constraintBottom_toBottomOf="@id/stock_name"
         app:layout_constraintEnd_toStartOf="@id/sell_price"/>
 

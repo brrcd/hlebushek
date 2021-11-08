@@ -4,13 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hlebushek.R
-import com.example.hlebushek.databinding.MarketRecyclerViewItemBinding
+import com.example.hlebushek.databinding.RvItemMarketBinding
 import com.example.hlebushek.model.remote.Stock
 
 class StockMarketAdapter : RecyclerView.Adapter<StockMarketAdapter.StockViewHolder>() {
 
-    private var _binding: MarketRecyclerViewItemBinding? = null
+    private var _binding: RvItemMarketBinding? = null
     private val binding get() = _binding!!
     private var stockList = listOf<Stock>()
 
@@ -23,7 +22,7 @@ class StockMarketAdapter : RecyclerView.Adapter<StockMarketAdapter.StockViewHold
         parent: ViewGroup,
         viewType: Int
     ): StockMarketAdapter.StockViewHolder {
-        _binding = MarketRecyclerViewItemBinding.inflate(
+        _binding = RvItemMarketBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return StockViewHolder(binding.root)
@@ -37,7 +36,7 @@ class StockMarketAdapter : RecyclerView.Adapter<StockMarketAdapter.StockViewHold
         return stockList.size
     }
 
-    inner class StockViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    inner class StockViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(stock: Stock) = with(binding) {
             stockName.text = stock.name
             currentSpreadAndCommission.text = "${stock.minPriceIncrement}"

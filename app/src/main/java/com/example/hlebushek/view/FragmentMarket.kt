@@ -14,7 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FragmentMarket: Fragment() {
+class FragmentMarket : Fragment() {
     private val viewModel: MarketViewModel by viewModel()
     private var _binding: FragmentMarketBinding? = null
     private val binding get() = _binding!!
@@ -31,8 +31,9 @@ class FragmentMarket: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it)} )
-        viewModel.getListOfStockMarket()
+        viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
+//        viewModel.getListOfStockMarket()
+        viewModel.getOrderbook("BBG000BVPV84", 1)
     }
 
     override fun onDestroyView() {
@@ -56,7 +57,7 @@ class FragmentMarket: Fragment() {
         }
     }
 
-    companion object{
+    companion object {
         const val MARKET_TAG = "market frag"
         fun newInstance() = FragmentMarket()
     }

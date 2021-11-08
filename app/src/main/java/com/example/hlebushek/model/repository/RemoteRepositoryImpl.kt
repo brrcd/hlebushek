@@ -15,4 +15,8 @@ class RemoteRepositoryImpl : RemoteRepository {
     override fun getCandleByFigi(figi: String, from: String, to: String, interval: String): ApiResponse? {
         return TraderRepo.api.getCandleByFigi(figi, from, to, interval).execute().body()
     }
+
+    override fun getOrderbook(figi: String, depth: Int): ApiResponse? {
+        return TraderRepo.api.getOrderbook(figi, depth).execute().body()
+    }
 }

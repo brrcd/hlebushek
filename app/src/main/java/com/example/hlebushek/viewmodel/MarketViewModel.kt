@@ -40,6 +40,18 @@ class MarketViewModel(private val remoteRepository: RemoteRepository) : ViewMode
         }
     }
 
+    fun getOrderbook(figi: String, depth: Int){
+        liveDataToObserve.value = AppState.Loading
+        job = CoroutineScope(Dispatchers.Default).launch {
+            val data = remoteRepository.getOrderbook(figi, depth)
+            liveDataToObserve.postValue(
+                AppState.Success(
+                    PayloadDTO(currentPrice = data?.payload?.lastPrice.toString())
+                )
+            )
+        }
+    }
+
     private fun getCurrentTime(): String {
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale("ru", "RU"))
             .format(Date())

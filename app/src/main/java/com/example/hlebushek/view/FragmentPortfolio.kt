@@ -35,7 +35,8 @@ class FragmentPortfolio : Fragment() {
     private fun renderData(appState: AppState) = with(binding) {
         when (appState) {
             is AppState.Success -> {
-                textViewPortfolioTotalValue.text = appState.payloadDTO.portfolio?.totalValue.toString()
+                textViewPortfolioTotalValue.text =
+                    appState.payloadDTO.portfolio?.totalValue.toString()
             }
             is AppState.Error -> {
 
@@ -46,7 +47,7 @@ class FragmentPortfolio : Fragment() {
         }
     }
 
-    companion object{
+    companion object {
         const val PORTFOLIO_TAG = "portfolio frag"
         fun newInstance() = FragmentPortfolio()
     }

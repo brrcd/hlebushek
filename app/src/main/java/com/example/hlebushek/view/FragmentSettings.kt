@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.hlebushek.databinding.FragmentSettingsBinding
 
-class FragmentSettings: Fragment() {
+class FragmentSettings : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
 
