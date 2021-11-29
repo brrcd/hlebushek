@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.hlebushek.R
-import com.example.hlebushek.view.FragmentMarket.Companion.MARKET_TAG
-import com.example.hlebushek.view.FragmentPortfolio.Companion.PORTFOLIO_TAG
-import com.example.hlebushek.view.FragmentSettings.Companion.SETTINGS_TAG
+import com.example.hlebushek.view.MarketFragment.Companion.MARKET_TAG
+import com.example.hlebushek.view.SearchFragment.Companion.SEARCH_TAG
+import com.example.hlebushek.view.SettingsFragment.Companion.SETTINGS_TAG
 import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : AppCompatActivity() {
@@ -18,15 +18,15 @@ class MainActivity : AppCompatActivity() {
         bottomNavView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.bottom_view_portfolio -> {
-                    replaceFragment(FragmentPortfolio(), PORTFOLIO_TAG)
+                    replaceFragment(SearchFragment(), SEARCH_TAG)
                     true
                 }
                 R.id.bottom_view_market -> {
-                    replaceFragment(FragmentMarket(), MARKET_TAG)
+                    replaceFragment(MarketFragment(), MARKET_TAG)
                     true
                 }
                 R.id.bottom_view_settings -> {
-                    replaceFragment(FragmentSettings(), SETTINGS_TAG)
+                    replaceFragment(SettingsFragment(), SETTINGS_TAG)
                     true
                 }
                 else -> false

@@ -18,9 +18,6 @@ object ApiUtils {
     private fun getOkHttpClient(apiKey: String): OkHttpClient {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         val httpClient = OkHttpClient.Builder()
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(10, TimeUnit.SECONDS)
-            .writeTimeout(10, TimeUnit.SECONDS)
             .addInterceptor { chain ->
                 val origin = chain.request()
                 val requestBuilder = origin.newBuilder()

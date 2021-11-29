@@ -2,8 +2,10 @@ package com.example.hlebushek.model.repository
 
 import com.example.hlebushek.api.TraderRepo
 import com.example.hlebushek.model.remote.ApiResponse
+import javax.inject.Inject
 
-class RemoteRepositoryImpl : RemoteRepository {
+class RemoteRepositoryImpl
+@Inject constructor(): RemoteRepository {
     override fun getPortfolio(): ApiResponse? {
         return TraderRepo.api.getPortfolio().execute().body()
     }

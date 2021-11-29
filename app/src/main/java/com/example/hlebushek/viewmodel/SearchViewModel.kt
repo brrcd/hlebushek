@@ -11,34 +11,27 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PortfolioViewModel(private val remoteRepository: RemoteRepository) : ViewModel() {
+class SearchViewModel
+@Inject constructor(private val remoteRepository: RemoteRepository) : ViewModel() {
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
     private var job: Job? = null
 
     fun getLiveData() = liveDataToObserve
 
-    fun getPortfolio() {
+    fun getListOfStocks(stockName: String) {
         liveDataToObserve.value = AppState.Loading
         job = CoroutineScope(Dispatchers.Default).launch {
-            val data = remoteRepository.getPortfolio()
-            if (data != null) {
-                val positions: List<Stock>? = data.payload?.positions
-                var totalValue = 0.0
-                positions?.forEach {
-                    totalValue += it.expectedYield?.value!!
-                    totalValue += (it.averagePositionPrice?.value?.times(it.lots!!)!!)
-                }
-                liveDataToObserve.postValue(
-                    AppState.Success(
-                        PayloadDTO(
-                            Portfolio(totalValue)
-                        )
+            val data = remoteRepository.getListOfStockMarket()?.payload?.instruments
+                ?.filter { it.name == stockName }
+            liveDataToObserve.postValue(
+                AppState.Success(
+                    PayloadDTO(
+                        stockList = data
                     )
                 )
-            } else {
-                //TODO response error handling
-            }
+            )
         }
     }
 

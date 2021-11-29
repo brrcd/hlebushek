@@ -4,28 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.hlebushek.AppState
 import com.example.hlebushek.adapters.StockMarketAdapter
-import com.example.hlebushek.databinding.FragmentMarketBinding
+import com.example.hlebushek.databinding.MarketFragmentBinding
 import com.example.hlebushek.viewmodel.MarketViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.text.SimpleDateFormat
-import java.util.*
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class FragmentMarket : Fragment() {
-    private val viewModel: MarketViewModel by viewModel()
-    private var _binding: FragmentMarketBinding? = null
+class MarketFragment : DaggerFragment() {
+    @Inject
+    lateinit var viewModel: MarketViewModel
+    private var _binding: MarketFragmentBinding? = null
     private val binding get() = _binding!!
-    private var adapter = StockMarketAdapter()
+    private val adapter = StockMarketAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMarketBinding.inflate(inflater, container, false)
+        _binding = MarketFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -59,7 +58,7 @@ class FragmentMarket : Fragment() {
 
     companion object {
         const val MARKET_TAG = "market frag"
-        fun newInstance() = FragmentMarket()
+        fun newInstance() = MarketFragment()
     }
 
 }

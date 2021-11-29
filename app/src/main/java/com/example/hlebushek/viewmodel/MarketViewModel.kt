@@ -11,8 +11,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class MarketViewModel(private val remoteRepository: RemoteRepository) : ViewModel() {
+class MarketViewModel
+@Inject constructor(private val remoteRepository: RemoteRepository) : ViewModel() {
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
     private var job: Job? = null
 
@@ -32,15 +34,17 @@ class MarketViewModel(private val remoteRepository: RemoteRepository) : ViewMode
                 )
                 liveDataToObserve.postValue(
                     AppState.Success(
-                        PayloadDTO(stockList = data.payload?.instruments,
-                            currentPrice = candles?.payload?.candles?.first()?.c)
+                        PayloadDTO(
+                            stockList = data.payload?.instruments,
+                            currentPrice = candles?.payload?.candles?.first()?.c
+                        )
                     )
                 )
             }
         }
     }
 
-    fun getOrderbook(figi: String, depth: Int){
+    fun getOrderbook(figi: String, depth: Int) {
         liveDataToObserve.value = AppState.Loading
         job = CoroutineScope(Dispatchers.Default).launch {
             val data = remoteRepository.getOrderbook(figi, depth)
