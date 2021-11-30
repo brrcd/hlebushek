@@ -1,24 +1,26 @@
 package com.example.hlebushek.model.repository
 
-import com.example.hlebushek.api.TraderRepo
+import com.example.hlebushek.api.TraderApi
 import com.example.hlebushek.model.remote.ApiResponse
 import javax.inject.Inject
 
 class RemoteRepositoryImpl
-@Inject constructor(): RemoteRepository {
+@Inject constructor(
+    private val api: TraderApi
+): RemoteRepository {
     override fun getPortfolio(): ApiResponse? {
-        return TraderRepo.api.getPortfolio().execute().body()
+        return api.getPortfolio().execute().body()
     }
 
     override fun getListOfStockMarket(): ApiResponse? {
-        return TraderRepo.api.getListOfStocks().execute().body()
+        return api.getListOfStocks().execute().body()
     }
 
     override fun getCandleByFigi(figi: String, from: String, to: String, interval: String): ApiResponse? {
-        return TraderRepo.api.getCandleByFigi(figi, from, to, interval).execute().body()
+        return api.getCandleByFigi(figi, from, to, interval).execute().body()
     }
 
     override fun getOrderbook(figi: String, depth: Int): ApiResponse? {
-        return TraderRepo.api.getOrderbook(figi, depth).execute().body()
+        return api.getOrderbook(figi, depth).execute().body()
     }
 }

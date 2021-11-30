@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/searchFragment"
+        android:icon="@drawable/ic_baseline_diamond_24"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/marketFragment"
+        android:icon="@drawable/ic_baseline_attach_money_24"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/currentTradeFragment"
+        android:icon="@drawable/ic_dollar_sign_in_black"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_baseline_settings_24"
+        tools:ignore="MenuTitle" />
+
+</menu>
