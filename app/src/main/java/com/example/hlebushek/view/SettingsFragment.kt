@@ -5,20 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.hlebushek.R
 import com.example.hlebushek.databinding.SettingsFragmentBinding
 
-class SettingsFragment : Fragment() {
-    private var _binding: SettingsFragmentBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = SettingsFragmentBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+class SettingsFragment : Fragment(R.layout.settings_fragment) {
+    private val binding by viewBinding(SettingsFragmentBinding::bind)
 
     companion object {
         const val SETTINGS_TAG = "settings fragment"

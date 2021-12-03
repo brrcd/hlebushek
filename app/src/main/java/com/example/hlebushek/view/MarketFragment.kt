@@ -5,39 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.hlebushek.AppState
+import com.example.hlebushek.R
 import com.example.hlebushek.adapters.StockMarketAdapter
 import com.example.hlebushek.databinding.MarketFragmentBinding
 import com.example.hlebushek.viewmodel.MarketViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class MarketFragment : DaggerFragment() {
+class MarketFragment : DaggerFragment(R.layout.market_fragment) {
     @Inject
     lateinit var viewModel: MarketViewModel
-    private var _binding: MarketFragmentBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(MarketFragmentBinding::bind)
     private val adapter = StockMarketAdapter()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = MarketFragmentBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
 //        viewModel.getListOfStockMarket()
         viewModel.getOrderbook("BBG000BVPV84", 1)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun renderData(appState: AppState) = with(binding) {

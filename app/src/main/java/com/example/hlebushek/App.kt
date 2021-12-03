@@ -13,4 +13,8 @@ class App : DaggerApplication() {
             .builder()
             .withContext(applicationContext)
             .build()
+
+    companion object{
+        const val TAG = "_TEST_"
+    }
 }

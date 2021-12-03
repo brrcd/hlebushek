@@ -20,18 +20,27 @@ class SearchViewModel
 
     fun getLiveData() = liveDataToObserve
 
-    fun getListOfStocks(stockName: String) {
+    fun getListOfStocksByName(stockName: String) {
         liveDataToObserve.value = AppState.Loading
         job = CoroutineScope(Dispatchers.Default).launch {
             val data = remoteRepository.getListOfStockMarket()?.payload?.instruments
-                ?.filter { it.name == stockName }
-            liveDataToObserve.postValue(
-                AppState.Success(
-                    PayloadDTO(
-                        stockList = data
+                ?.filter {
+                    it.name!!.lowercase().contains(stockName.lowercase())
+                }
+
+            if (data.isNullOrEmpty()) { // if filtered data is empty or null
+                liveDataToObserve.postValue(
+                    AppState.Error("Enter other stock name")
+                )
+            } else {
+                liveDataToObserve.postValue(
+                    AppState.Success(
+                        PayloadDTO(
+                            stockList = data
+                        )
                     )
                 )
-            )
+            }
         }
     }
 

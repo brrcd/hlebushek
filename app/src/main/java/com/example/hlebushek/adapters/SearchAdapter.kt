@@ -1,6 +1,5 @@
 package com.example.hlebushek.adapters
 
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hlebushek.databinding.RvItemSearchBinding
 import com.example.hlebushek.model.remote.Stock
 
-class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
+class SearchAdapter(private val delegate: (stock: Stock) -> Unit) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
     private var _binding: RvItemSearchBinding? = null
     private val binding get() = _binding!!
@@ -30,7 +29,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
-        holder.bind(stockList[position])
+        holder.bind(stockList[position], delegate)
     }
 
     override fun getItemCount(): Int {
@@ -38,8 +37,11 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
     }
 
     inner class SearchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(stock: Stock) = with(binding) {
-            stockName.text = stock.name
+        fun bind(stock: Stock, delegate: (stock: Stock) -> Unit) = with(binding) {
+            tvStockName.text = stock.name
+            ivAddStockToCurrentTrade.setOnClickListener {
+                delegate.invoke(stock)
+            }
         }
     }
 }
