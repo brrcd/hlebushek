@@ -14,7 +14,7 @@
         <entry key="app/src/main/res/layout/market_recycler_view_item.xml" value="0.75" />
         <entry key="app/src/main/res/layout/rv_item_current_trade.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/rv_item_market.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/rv_item_search.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/rv_item_search.xml" value="0.25" />
         <entry key="app/src/main/res/layout/search_fragment.xml" value="0.22" />
         <entry key="app/src/main/res/menu/bottom_nav_view.xml" value="0.19322916666666667" />
       </map>

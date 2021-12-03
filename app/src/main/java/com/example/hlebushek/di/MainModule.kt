@@ -9,7 +9,12 @@ import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
-@Module(includes = [ViewModelModule::class, ApiModule::class])
+@Module(
+    includes = [
+        ViewModelModule::class,
+        NetworkModule::class,
+        DBModule::class]
+)
 interface MainModule {
 
     @ContributesAndroidInjector
