@@ -27,6 +27,7 @@ class SearchFragment : DaggerFragment(R.layout.search_fragment) {
             TODO()
         })
     }
+    //TODO price chart on rv item
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)

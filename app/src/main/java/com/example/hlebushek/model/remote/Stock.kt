@@ -27,3 +27,5 @@ data class Stock(
     val name: String?,
     val type: String?,
 ) : Parcelable
+
+//TODO deserializer or DTO
