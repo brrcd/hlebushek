@@ -4,28 +4,22 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-@Entity
+@Entity(tableName = "stocks")
 @Parcelize
 data class Stock(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val id: Long,
+    @SerializedName("figi")
     val figi: String?,
-    val ticker: String?,
-    val isin: String?,
+    @SerializedName("instrumentType")
     val instrumentType: String?,
-    val balance: Double?,
-    val blocked: Double?,
-    val expectedYield: Currency?,
-    val minPriceIncrement: Double?,
-    val minQuantity: Double?,
-    val lot: Double?,
-    val lots: Double?,
-    val averagePositionPrice: Currency?,
-    val averagePositionPriceNoNkd: Currency?,
-    val currency: String?,
+    @SerializedName("name")
     val name: String?,
-    val type: String?,
+    @SerializedName("ticker")
+    val ticker: String?
 ) : Parcelable
 
 //TODO deserializer or DTO

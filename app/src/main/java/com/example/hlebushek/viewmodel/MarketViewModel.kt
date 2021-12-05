@@ -2,8 +2,10 @@ package com.example.hlebushek.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.hlebushek.AppState
 import com.example.hlebushek.model.local.PayloadDTO
+import com.example.hlebushek.model.repository.MainRepository
 import com.example.hlebushek.model.repository.RemoteRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,19 +16,18 @@ import java.util.*
 import javax.inject.Inject
 
 class MarketViewModel
-@Inject constructor(private val remoteRepository: RemoteRepository) : ViewModel() {
+@Inject constructor(private val repository: MainRepository) : ViewModel() {
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
-    private var job: Job? = null
 
     fun getLiveData() = liveDataToObserve
 
     //TODO redo
     fun getListOfStockMarket() {
         liveDataToObserve.value = AppState.Loading
-        job = CoroutineScope(Dispatchers.Default).launch {
-            val data = remoteRepository.getListOfStockMarket()
+        viewModelScope.launch(Dispatchers.IO) {
+            val data = repository.getListOfStockMarket()
             if (data != null) {
-                val candles = remoteRepository.getCandleByFigi(
+                val candles = repository.getCandleByFigi(
                     "BBG000BBV4M5",
                     getCurrentTime(),
                     getCurrentTime(),
@@ -46,8 +47,8 @@ class MarketViewModel
 
     fun getOrderbook(figi: String, depth: Int) {
         liveDataToObserve.value = AppState.Loading
-        job = CoroutineScope(Dispatchers.Default).launch {
-            val data = remoteRepository.getOrderbook(figi, depth)
+        viewModelScope.launch(Dispatchers.IO) {
+            val data = repository.getOrderbook(figi, depth)
             liveDataToObserve.postValue(
                 AppState.Success(
                     PayloadDTO(currentPrice = data?.payload?.lastPrice.toString())
@@ -62,10 +63,5 @@ class MarketViewModel
         val currentTime = SimpleDateFormat("hh:mm:ss", Locale("ru", "RU"))
             .format(Date())
         return (currentDate + "T" + currentTime + "+03:00")
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        job?.cancel()
     }
 }

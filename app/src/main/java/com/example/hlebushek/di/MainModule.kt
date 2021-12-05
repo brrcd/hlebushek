@@ -1,7 +1,6 @@
 package com.example.hlebushek.di
 
-import com.example.hlebushek.model.repository.RemoteRepository
-import com.example.hlebushek.model.repository.RemoteRepositoryImpl
+import com.example.hlebushek.model.repository.*
 import com.example.hlebushek.view.CurrentTradeFragment
 import com.example.hlebushek.view.MarketFragment
 import com.example.hlebushek.view.SearchFragment
@@ -25,6 +24,16 @@ interface MainModule {
 
     @ContributesAndroidInjector
     fun binCurrentTradeFragment(): CurrentTradeFragment
+
+    @Binds
+    fun bindMainRepository(
+        mainRepository: MainRepositoryImpl
+    ): MainRepository
+
+    @Binds
+    fun bindLocalRepository(
+        localRepository: LocalRepositoryImpl
+    ): LocalRepository
 
     @Binds
     fun bindRemoteRepository(

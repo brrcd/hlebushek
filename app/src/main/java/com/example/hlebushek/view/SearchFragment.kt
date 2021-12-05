@@ -14,6 +14,8 @@ import com.example.hlebushek.AppState
 import com.example.hlebushek.R
 import com.example.hlebushek.adapters.SearchAdapter
 import com.example.hlebushek.databinding.SearchFragmentBinding
+import com.example.hlebushek.setGone
+import com.example.hlebushek.setVisible
 import com.example.hlebushek.viewmodel.SearchViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -23,8 +25,8 @@ class SearchFragment : DaggerFragment(R.layout.search_fragment) {
     lateinit var viewModel: SearchViewModel
     private val binding by viewBinding(SearchFragmentBinding::bind)
     private val adapter by lazy {
-        SearchAdapter(delegate = { item ->
-            TODO()
+        SearchAdapter(delegate = { stock ->
+            viewModel.addStockToDB(stock)
         })
     }
     //TODO price chart on rv item
@@ -56,7 +58,7 @@ class SearchFragment : DaggerFragment(R.layout.search_fragment) {
     private fun renderData(appState: AppState) = with(binding) {
         when (appState) {
             is AppState.Success -> {
-                loadingLayout.visibility = View.GONE
+                loadingLayout.setGone()
                 appState.payloadDTO.stockList?.let {
                     adapter.setStockList(
                         it
@@ -64,7 +66,7 @@ class SearchFragment : DaggerFragment(R.layout.search_fragment) {
                 }
             }
             is AppState.Error -> {
-                loadingLayout.visibility = View.GONE
+                loadingLayout.setGone()
                 Toast.makeText(
                     requireContext(),
                     appState.errorMessage,
@@ -72,7 +74,7 @@ class SearchFragment : DaggerFragment(R.layout.search_fragment) {
                 ).show()
             }
             is AppState.Loading -> {
-                loadingLayout.visibility = View.VISIBLE
+                loadingLayout.setVisible()
             }
         }
     }

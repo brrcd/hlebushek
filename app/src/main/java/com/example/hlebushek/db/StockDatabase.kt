@@ -6,7 +6,7 @@ import com.example.hlebushek.model.remote.Stock
 
 @Database(
     entities = [Stock::class],
-    version = 0,
+    version = 1,
     exportSchema = false
 )
 abstract class StockDatabase : RoomDatabase(){

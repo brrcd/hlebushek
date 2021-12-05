@@ -1,6 +1,6 @@
 package com.example.hlebushek.di
 
-import com.example.hlebushek.model.repository.RemoteRepository
+import com.example.hlebushek.model.repository.MainRepositoryImpl
 import com.example.hlebushek.model.repository.RemoteRepositoryImpl
 import com.example.hlebushek.viewmodel.CurrentTradeViewModel
 import com.example.hlebushek.viewmodel.MarketViewModel
@@ -12,14 +12,14 @@ import dagger.Provides
 class ViewModelModule {
 
     @Provides
-    fun provideMarketViewModel(remoteRepository: RemoteRepositoryImpl): MarketViewModel =
-        MarketViewModel(remoteRepository)
+    fun provideMarketViewModel(repository: MainRepositoryImpl): MarketViewModel =
+        MarketViewModel(repository)
 
     @Provides
-    fun provideSearchViewModel(remoteRepository: RemoteRepositoryImpl): SearchViewModel =
-        SearchViewModel(remoteRepository)
+    fun provideSearchViewModel(repository: MainRepositoryImpl): SearchViewModel =
+        SearchViewModel(repository)
 
     @Provides
-    fun provideCurrentTradeViewModel(remoteRepository: RemoteRepositoryImpl): CurrentTradeViewModel =
-        CurrentTradeViewModel(remoteRepository)
+    fun provideCurrentTradeViewModel(repository: MainRepositoryImpl): CurrentTradeViewModel =
+        CurrentTradeViewModel(repository)
 }

@@ -16,5 +16,6 @@ class DBModule {
             StockDatabase::class.java,
             "stock.db"
         )
+            .fallbackToDestructiveMigration()
             .build()
 }

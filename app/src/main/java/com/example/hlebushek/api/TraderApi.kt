@@ -7,8 +7,6 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface TraderApi {
-    @GET("portfolio")
-    fun getPortfolio(): Call<ApiResponse>
 
     @GET("market/stocks")
     fun getListOfStocks(): Call<ApiResponse>

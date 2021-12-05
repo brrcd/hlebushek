@@ -8,9 +8,6 @@ class RemoteRepositoryImpl
 @Inject constructor(
     private val api: TraderApi
 ): RemoteRepository {
-    override fun getPortfolio(): ApiResponse? {
-        return api.getPortfolio().execute().body()
-    }
 
     override fun getListOfStockMarket(): ApiResponse? {
         return api.getListOfStocks().execute().body()

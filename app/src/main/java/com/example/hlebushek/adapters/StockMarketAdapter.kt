@@ -39,8 +39,6 @@ class StockMarketAdapter : RecyclerView.Adapter<StockMarketAdapter.StockViewHold
     inner class StockViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(stock: Stock) = with(binding) {
             tvStockName.text = stock.name
-            currentSpreadAndCommission.text = "${stock.minPriceIncrement}"
-            currentPrice.text = "${stock.minQuantity}"
         }
     }
 }

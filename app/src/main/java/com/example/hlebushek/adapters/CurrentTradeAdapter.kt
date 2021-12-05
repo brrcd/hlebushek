@@ -11,15 +11,11 @@ class CurrentTradeAdapter : RecyclerView.Adapter<CurrentTradeAdapter.CurrentTrad
 
     private var _binding: RvItemCurrentTradeBinding? = null
     private val binding get() = _binding!!
-    private var stockList = mutableListOf<Stock>()
+    private var stockList = listOf<Stock>()
 
-    fun setStockList(data: MutableList<Stock>) {
+    fun setStockList(data: List<Stock>) {
         stockList = data
-    }
-
-    fun addStockToList(stock: Stock) {
-        stockList.add(stock)
-        notifyItemInserted(itemCount - 1)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(
