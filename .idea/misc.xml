@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Git/hlebushek/app/src/main/res/menu/bottom_nav_view.xml" value="0.125" />
         <entry key="app/src/main/res/drawable/ic_sell.xml" value="0.209375" />
         <entry key="app/src/main/res/layout/current_trade_fragment.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_current_trade.xml" value="0.19322916666666667" />

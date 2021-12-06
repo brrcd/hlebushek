@@ -21,5 +21,3 @@ data class Stock(
     @SerializedName("ticker")
     val ticker: String?
 ) : Parcelable
-
-//TODO deserializer or DTO

@@ -8,11 +8,6 @@
         tools:ignore="MenuTitle" />
 
     <item
-        android:id="@+id/marketFragment"
-        android:icon="@drawable/ic_baseline_attach_money_24"
-        tools:ignore="MenuTitle" />
-
-    <item
         android:id="@+id/currentTradeFragment"
         android:icon="@drawable/ic_dollar_sign_in_black"
         tools:ignore="MenuTitle" />
