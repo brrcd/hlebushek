@@ -8,9 +8,6 @@
         android:name="com.example.hlebushek.view.CurrentTradeFragment"
         android:label="CurrentTradeFragment" >
         <action
-            android:id="@+id/action_currentTradeFragment_to_marketFragment"
-            app:destination="@id/marketFragment" />
-        <action
             android:id="@+id/action_currentTradeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
         <action
@@ -18,26 +15,9 @@
             app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/marketFragment"
-        android:name="com.example.hlebushek.view.MarketFragment"
-        android:label="MarketFragment" >
-        <action
-            android:id="@+id/action_marketFragment_to_currentTradeFragment"
-            app:destination="@id/currentTradeFragment" />
-        <action
-            android:id="@+id/action_marketFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
-        <action
-            android:id="@+id/action_marketFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.hlebushek.view.SearchFragment"
         android:label="SearchFragment" >
-        <action
-            android:id="@+id/action_searchFragment_to_marketFragment"
-            app:destination="@id/marketFragment" />
         <action
             android:id="@+id/action_searchFragment_to_currentTradeFragment"
             app:destination="@id/currentTradeFragment" />
@@ -55,8 +35,5 @@
         <action
             android:id="@+id/action_settingsFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_settingsFragment_to_marketFragment"
-            app:destination="@id/marketFragment" />
     </fragment>
 </navigation>

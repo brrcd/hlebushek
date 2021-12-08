@@ -22,7 +22,7 @@ class MainRepositoryImpl
         remoteRepository.getCandleByFigi(figi, from, to, interval)
 
 
-    override fun getOrderbook(figi: String, depth: Int): ApiResponse? =
+    override fun getOrderbookByFigi(figi: String, depth: Int): ApiResponse? =
         remoteRepository.getOrderbook(figi, depth)
 
 

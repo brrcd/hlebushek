@@ -7,13 +7,11 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-@Entity(tableName = "stocks")
+@Entity(tableName = "stocks", primaryKeys = ["figi"])
 @Parcelize
 data class Stock(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long,
     @SerializedName("figi")
-    val figi: String?,
+    val figi: String,
     @SerializedName("instrumentType")
     val instrumentType: String?,
     @SerializedName("name")

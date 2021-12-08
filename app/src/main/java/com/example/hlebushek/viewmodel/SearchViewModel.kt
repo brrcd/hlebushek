@@ -5,13 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hlebushek.AppState
 import com.example.hlebushek.model.local.PayloadDTO
-import com.example.hlebushek.model.local.Portfolio
 import com.example.hlebushek.model.remote.Stock
 import com.example.hlebushek.model.repository.MainRepository
-import com.example.hlebushek.model.repository.RemoteRepository
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -1,6 +1,7 @@
 package com.example.hlebushek.di
 
 import com.example.hlebushek.model.repository.*
+import com.example.hlebushek.services.TraderService
 import com.example.hlebushek.view.CurrentTradeFragment
 import com.example.hlebushek.view.SearchFragment
 import dagger.Binds
@@ -19,7 +20,10 @@ interface MainModule {
     fun bindSearchFragment(): SearchFragment
 
     @ContributesAndroidInjector
-    fun binCurrentTradeFragment(): CurrentTradeFragment
+    fun bindCurrentTradeFragment(): CurrentTradeFragment
+
+    @ContributesAndroidInjector
+    fun bindTraderService(): TraderService
 
     @Binds
     fun bindMainRepository(
