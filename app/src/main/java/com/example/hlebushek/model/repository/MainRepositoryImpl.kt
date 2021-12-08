@@ -12,7 +12,6 @@ class MainRepositoryImpl
     override fun getListOfStockMarket(): ApiResponse? =
         remoteRepository.getListOfStockMarket()
 
-
     override fun getCandleByFigi(
         figi: String,
         from: String,
@@ -21,10 +20,8 @@ class MainRepositoryImpl
     ): ApiResponse? =
         remoteRepository.getCandleByFigi(figi, from, to, interval)
 
-
-    override fun getOrderbook(figi: String, depth: Int): ApiResponse? =
+    override fun getOrderbookByFigi(figi: String, depth: Int): ApiResponse? =
         remoteRepository.getOrderbook(figi, depth)
-
 
     override fun addStockToCurrentTrade(stock: Stock) =
         localRepository.addStockToCurrentTrade(stock)

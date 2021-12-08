@@ -20,7 +20,7 @@ interface TraderApi {
     ): Call<ApiResponse>
 
     @GET("market/orderbook")
-    fun getOrderbook(
+    fun getOrderbookByFigi(
         @Query("figi") figi: String,
         @Query("depth") depth: Int
     ): Call<ApiResponse>

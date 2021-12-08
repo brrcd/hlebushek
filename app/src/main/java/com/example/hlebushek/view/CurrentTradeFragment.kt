@@ -1,5 +1,6 @@
 package com.example.hlebushek.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -21,6 +22,7 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.recyclerView.adapter = adapter
         viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
         viewModel.getStocksFromD()

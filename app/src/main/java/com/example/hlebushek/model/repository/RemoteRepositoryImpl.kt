@@ -18,6 +18,6 @@ class RemoteRepositoryImpl
     }
 
     override fun getOrderbook(figi: String, depth: Int): ApiResponse? {
-        return api.getOrderbook(figi, depth).execute().body()
+        return api.getOrderbookByFigi(figi, depth).execute().body()
     }
 }

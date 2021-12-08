@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ApiResponse(
-    val trackingId: String?,
-    val status: String?,
-    val payload: Payload?,
+    val trackingId: String,
+    val status: String,
+    val payload: Payload,
 ) : Parcelable

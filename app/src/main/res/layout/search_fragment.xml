@@ -8,6 +8,8 @@
         android:id="@+id/search_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large"
+        app:boxBackgroundColor="@color/white"
         app:endIconCheckable="true"
         app:endIconDrawable="@drawable/ic_dollar_sign_sell"
         app:endIconMode="custom"
@@ -27,6 +29,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/search_input_layout"
         app:layout_constraintStart_toStartOf="parent"/>

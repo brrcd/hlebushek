@@ -5,10 +5,12 @@ import androidx.room.Room
 import com.example.hlebushek.db.StockDatabase
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 class DBModule {
 
+    @Singleton
     @Provides
     fun provideDatabase(context: Context): StockDatabase =
         Room.databaseBuilder(
