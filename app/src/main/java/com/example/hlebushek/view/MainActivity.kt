@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = navHostFragment.findNavController()
         navView.setupWithNavController(navController)
-        startService(Intent(this, TraderService::class.java))
     }
 
     override fun onDestroy() {

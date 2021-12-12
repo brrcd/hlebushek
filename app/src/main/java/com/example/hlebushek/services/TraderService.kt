@@ -33,7 +33,6 @@ class TraderService : DaggerService() {
         return START_STICKY
     }
 
-
     private fun checkLastPrices() {
         log("Service check prices.")
         stocks.forEach { stock ->

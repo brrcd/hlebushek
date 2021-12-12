@@ -9,7 +9,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.annotation.NonNull
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.hlebushek.App.Companion.TAG
 import com.example.hlebushek.AppState
 import com.example.hlebushek.R
 import com.example.hlebushek.adapters.SearchAdapter
@@ -27,6 +26,8 @@ class SearchFragment : DaggerFragment(R.layout.search_fragment) {
     private val adapter by lazy {
         SearchAdapter(delegate = { stock ->
             viewModel.addStockToDB(stock)
+            //TODO get last price according to successfulness of order
+            viewModel.getLastPrice(stock)
         })
     }
     //TODO price chart on rv item

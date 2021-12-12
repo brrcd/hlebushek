@@ -41,7 +41,23 @@ class SearchViewModel
         }
     }
 
-    fun addStockToDB(stock: Stock){
+    fun getLastPrice(stock: Stock) {
+        liveDataToObserve.value = AppState.Loading
+        viewModelScope.launch(Dispatchers.IO) {
+            val lastPrice = repository.getOrderbookByFigi(stock.figi)?.payload?.lastPrice
+            if (lastPrice == 0.0 || lastPrice == null){
+                liveDataToObserve.postValue(
+                    AppState.Error("Error while getting last price")
+                )
+            } else {
+                stock.purchasePrice = lastPrice
+                repository.addStockToCurrentTrade(stock)
+                liveDataToObserve.postValue(AppState.Success(PayloadDTO()))
+            }
+        }
+    }
+
+    fun addStockToDB(stock: Stock) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addStockToCurrentTrade(stock)
         }

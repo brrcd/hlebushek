@@ -1,7 +1,5 @@
 package com.example.hlebushek
 
-import android.app.Application
-import android.content.Context
 import com.example.hlebushek.di.DaggerHlebushekComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
@@ -13,8 +11,4 @@ class App : DaggerApplication() {
             .builder()
             .withContext(applicationContext)
             .build()
-
-    companion object{
-        const val TAG = "_TEST_"
-    }
 }

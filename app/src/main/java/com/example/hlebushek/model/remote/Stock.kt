@@ -12,10 +12,9 @@ import kotlinx.parcelize.Parcelize
 data class Stock(
     @SerializedName("figi")
     val figi: String,
-    @SerializedName("instrumentType")
-    val instrumentType: String?,
     @SerializedName("name")
     val name: String?,
     @SerializedName("ticker")
-    val ticker: String?
+    val ticker: String?,
+    var purchasePrice: Double? = 0.0
 ) : Parcelable

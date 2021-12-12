@@ -2,7 +2,6 @@ package com.example.hlebushek
 
 import android.util.Log
 import android.view.View
-import com.example.hlebushek.App.Companion.TAG
 
 fun View.setGone(){
     visibility = View.GONE
@@ -13,5 +12,5 @@ fun View.setVisible(){
 }
 
 fun log(message: Any){
-    Log.e(TAG, message.toString())
+    Log.e("_TEST_", message.toString())
 }
