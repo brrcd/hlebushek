@@ -18,4 +18,9 @@ class LocalRepositoryImpl
         database
             .stockDao()
             .getStocksFromDB()
+
+    override fun updateStock(stock: Stock) =
+        database
+            .stockDao()
+            .updateStock(stock)
 }

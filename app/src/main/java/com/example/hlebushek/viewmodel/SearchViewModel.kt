@@ -9,6 +9,7 @@ import com.example.hlebushek.model.remote.Stock
 import com.example.hlebushek.model.repository.MainRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 class SearchViewModel
@@ -51,6 +52,7 @@ class SearchViewModel
                 )
             } else {
                 stock.purchasePrice = lastPrice
+                stock.purchaseDate = Calendar.getInstance().time.toString()
                 repository.addStockToCurrentTrade(stock)
                 liveDataToObserve.postValue(AppState.Success(PayloadDTO()))
             }

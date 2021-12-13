@@ -9,4 +9,5 @@ interface MainRepository {
     fun getOrderbookByFigi(figi: String, depth: Int = 1): ApiResponse?
     fun addStockToCurrentTrade(stock: Stock)
     fun getStocksFromDB(): List<Stock>
+    fun updateStock(stock: Stock)
 }

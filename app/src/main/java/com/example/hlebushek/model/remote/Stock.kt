@@ -16,5 +16,6 @@ data class Stock(
     val name: String?,
     @SerializedName("ticker")
     val ticker: String?,
-    var purchasePrice: Double? = 0.0
+    var purchasePrice: Double? = 0.0,
+    var purchaseDate: String? = ""
 ) : Parcelable

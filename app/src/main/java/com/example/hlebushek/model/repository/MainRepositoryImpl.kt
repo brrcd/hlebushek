@@ -28,4 +28,7 @@ class MainRepositoryImpl
 
     override fun getStocksFromDB(): List<Stock> =
         localRepository.getStocksFromDB()
+
+    override fun updateStock(stock: Stock) =
+        localRepository.updateStock(stock)
 }

@@ -21,4 +21,6 @@
     <string name="sell_price">993RUB</string>
     <string name="spread_and_commission">13RUB</string>
     <string name="enter_stock_name">Enter stock name</string>
+    <string name="tv_tax_rate">Buy/sell tax rate %</string>
+    <string name="tax_rate_sample">0.0</string>
 </resources>

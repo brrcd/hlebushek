@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/layout/rv_item_market.xml" value="0.5" />
         <entry key="app/src/main/res/layout/rv_item_search.xml" value="0.25" />
         <entry key="app/src/main/res/layout/search_fragment.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/settings_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/menu/bottom_nav_view.xml" value="0.19322916666666667" />
       </map>
     </option>
