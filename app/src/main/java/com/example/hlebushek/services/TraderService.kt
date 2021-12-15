@@ -1,10 +1,7 @@
 package com.example.hlebushek.services
 
-import android.content.BroadcastReceiver
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.IBinder
-import android.preference.PreferenceManager
 import com.example.hlebushek.log
 import com.example.hlebushek.model.remote.Stock
 import com.example.hlebushek.model.repository.MainRepository
@@ -21,7 +18,8 @@ class TraderService : DaggerService() {
     @Inject
     lateinit var repository: MainRepository
     private var stocks: List<Stock> = listOf()
-    private var job: Job? = null
+    private var job0: Job? = null
+    private var job1: Job? = null
 
     private var taxRate = 0.0f
 
@@ -34,8 +32,15 @@ class TraderService : DaggerService() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: Event){
-        log("Service on event ${event.taxRate}")
-        taxRate = event.taxRate
+        when (event) {
+            Event.CheckPrice -> {
+                log("Service on event check prices")
+                checkLastPrices()
+            }
+            Event.OtherOne -> {
+                log("Service on event other one")
+            }
+        }
     }
 
     private fun getTaxRateFromSharedPrefs() {
@@ -51,7 +56,7 @@ class TraderService : DaggerService() {
             }
         }
 
-        job = CoroutineScope(Dispatchers.Default).launch {
+        job1 = CoroutineScope(Dispatchers.Default).launch {
             while (true) {
                 checkLastPrices()
                 delay(5000L)
@@ -61,9 +66,11 @@ class TraderService : DaggerService() {
     }
 
     private fun checkLastPrices() {
-        log("Service check prices. $taxRate")
-        stocks.forEach { stock ->
-            repository.getOrderbookByFigi(stock.figi)?.payload?.lastPrice?.let { log(it) }
+        job0 = CoroutineScope(Dispatchers.IO).launch {
+            log("Service check prices. $taxRate")
+            stocks.forEach { stock ->
+                repository.getOrderbookByFigi(stock.figi)?.payload?.lastPrice?.let { log(it) }
+            }
         }
     }
 
@@ -71,7 +78,8 @@ class TraderService : DaggerService() {
         super.onDestroy()
         log("Service destroyed.")
         EventBus.getDefault().unregister(this)
-        job?.cancel()
+        job1?.cancel()
+        job0?.cancel()
     }
 
     override fun onBind(intent: Intent?): IBinder? = null

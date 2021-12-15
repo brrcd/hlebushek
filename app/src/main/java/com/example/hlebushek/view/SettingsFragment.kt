@@ -25,16 +25,16 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
     private fun initTaxRate() = with(binding) {
         val prefs = activity?.getSharedPreferences(TAX_RATE_TAG, MODE_PRIVATE)
 
-        etTaxRate.setOnEditorActionListener { _, actionId, _ ->
+        etTaxRate.setOnEditorActionListener { view, actionId, _ ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
                     prefs?.edit()
                         ?.putFloat(TAX_RATE_TAG, etTaxRate.text.toFloat())
                         ?.apply()
 
-                    EventBus.getDefault().post(Event(5f))
                     hideKeyboard()
-                    etTaxRate.clearFocus()
+                    view.clearFocus()
+                    EventBus.getDefault().post(Event.CheckPrice)
                     true
                 }
                 else -> {
