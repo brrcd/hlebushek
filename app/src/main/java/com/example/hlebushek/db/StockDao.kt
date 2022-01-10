@@ -11,7 +11,4 @@ interface StockDao {
 
     @Query("SELECT * FROM stocks")
     fun getStocksFromDB(): List<Stock>
-
-    @Update
-    fun updateStock(stock: Stock)
 }

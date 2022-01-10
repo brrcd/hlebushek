@@ -1,13 +1,15 @@
 package com.example.hlebushek.model.repository
 
 import com.example.hlebushek.db.StockDatabase
+import com.example.hlebushek.model.local.Settings
 import com.example.hlebushek.model.remote.Stock
 import javax.inject.Inject
 
 interface LocalRepository {
     fun addStockToCurrentTrade(stock: Stock)
     fun getStocksFromDB(): List<Stock>
-    fun updateStock(stock: Stock)
+    fun saveSettings(settings: Settings)
+    fun getSettings(): Settings
 }
 
 class LocalRepositoryImpl
@@ -25,8 +27,13 @@ class LocalRepositoryImpl
             .stockDao()
             .getStocksFromDB()
 
-    override fun updateStock(stock: Stock) =
+    override fun saveSettings(settings: Settings) =
         database
-            .stockDao()
-            .updateStock(stock)
+            .settingsDao()
+            .saveSettings(settings)
+
+    override fun getSettings(): Settings =
+        database
+            .settingsDao()
+            .getSettings()
 }

@@ -1,4 +1,4 @@
-package com.example.hlebushek.services
+package com.example.hlebushek.eventbus
 
 sealed class Event {
     object CheckPrice : Event()

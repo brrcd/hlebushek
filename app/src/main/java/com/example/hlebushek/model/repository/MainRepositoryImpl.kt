@@ -1,5 +1,6 @@
 package com.example.hlebushek.model.repository
 
+import com.example.hlebushek.model.local.Settings
 import com.example.hlebushek.model.remote.ApiResponse
 import com.example.hlebushek.model.remote.Stock
 import javax.inject.Inject
@@ -10,7 +11,8 @@ interface MainRepository {
     fun getOrderbookByFigi(figi: String, depth: Int = 1): ApiResponse?
     fun addStockToCurrentTrade(stock: Stock)
     fun getStocksFromDB(): List<Stock>
-    fun updateStock(stock: Stock)
+    fun saveSettings(settings: Settings)
+    fun getSettings(): Settings
 }
 
 class MainRepositoryImpl
@@ -38,6 +40,9 @@ class MainRepositoryImpl
     override fun getStocksFromDB(): List<Stock> =
         localRepository.getStocksFromDB()
 
-    override fun updateStock(stock: Stock) =
-        localRepository.updateStock(stock)
+    override fun saveSettings(settings: Settings) =
+        localRepository.saveSettings(settings)
+
+    override fun getSettings(): Settings =
+        localRepository.getSettings()
 }

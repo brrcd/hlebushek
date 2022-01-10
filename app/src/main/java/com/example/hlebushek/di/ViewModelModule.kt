@@ -3,6 +3,7 @@ package com.example.hlebushek.di
 import com.example.hlebushek.model.repository.MainRepositoryImpl
 import com.example.hlebushek.viewmodel.CurrentTradeViewModel
 import com.example.hlebushek.viewmodel.SearchViewModel
+import com.example.hlebushek.viewmodel.SettingsViewModel
 import dagger.Module
 import dagger.Provides
 
@@ -16,4 +17,8 @@ class ViewModelModule {
     @Provides
     fun provideCurrentTradeViewModel(repository: MainRepositoryImpl): CurrentTradeViewModel =
         CurrentTradeViewModel(repository)
+
+    @Provides
+    fun provideSettingsViewModel(repository: MainRepositoryImpl): SettingsViewModel =
+        SettingsViewModel(repository)
 }

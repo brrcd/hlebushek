@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hlebushek.AppState
 import com.example.hlebushek.model.local.PayloadDTO
-import com.example.hlebushek.model.remote.Stock
 import com.example.hlebushek.model.repository.MainRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -4,9 +4,11 @@ import com.example.hlebushek.model.repository.*
 import com.example.hlebushek.services.TraderService
 import com.example.hlebushek.view.CurrentTradeFragment
 import com.example.hlebushek.view.SearchFragment
+import com.example.hlebushek.view.SettingsFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import javax.inject.Singleton
 
 @Module(
     includes = [
@@ -23,19 +25,25 @@ interface MainModule {
     fun bindCurrentTradeFragment(): CurrentTradeFragment
 
     @ContributesAndroidInjector
+    fun bindSettingsFragment(): SettingsFragment
+
+    @ContributesAndroidInjector
     fun bindTraderService(): TraderService
 
     @Binds
+    @Singleton
     fun bindMainRepository(
         mainRepository: MainRepositoryImpl
     ): MainRepository
 
     @Binds
+    @Singleton
     fun bindLocalRepository(
         localRepository: LocalRepositoryImpl
     ): LocalRepository
 
     @Binds
+    @Singleton
     fun bindRemoteRepository(
         remoteRepository: RemoteRepositoryImpl
     ): RemoteRepository

@@ -1,40 +1,54 @@
 package com.example.hlebushek.view
 
-import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.hlebushek.R
+import com.example.hlebushek.*
 import com.example.hlebushek.databinding.SettingsFragmentBinding
-import com.example.hlebushek.hideKeyboard
-import com.example.hlebushek.services.Event
-import com.example.hlebushek.toFloat
-import org.greenrobot.eventbus.EventBus
+import com.example.hlebushek.viewmodel.SettingsViewModel
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class SettingsFragment : Fragment(R.layout.settings_fragment) {
+class SettingsFragment : DaggerFragment(R.layout.settings_fragment) {
+    @Inject
+    lateinit var viewModel: SettingsViewModel
     private val binding by viewBinding(SettingsFragmentBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        initTaxRate()
+
+        viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getSettings()
+
+        setTaxRateSettingListener()
     }
 
-    private fun initTaxRate() = with(binding) {
-        val prefs = activity?.getSharedPreferences(TAX_RATE_TAG, MODE_PRIVATE)
+    private fun renderData(appState: SettingsAppState) = with(binding) {
+        when (appState) {
+            is SettingsAppState.Success -> {
+                loadingLayout.setGone()
+                etTaxRate.text = SpannableStringBuilder(
+                    appState.settings.taxRate.toString()
+                )
+            }
+            is SettingsAppState.Error -> {
+                loadingLayout.setGone()
+            }
+            is SettingsAppState.Loading -> {
+                loadingLayout.setVisible()
+            }
+        }
+    }
 
+    private fun setTaxRateSettingListener() = with(binding) {
         etTaxRate.setOnEditorActionListener { view, actionId, _ ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
-                    prefs?.edit()
-                        ?.putFloat(TAX_RATE_TAG, etTaxRate.text.toFloat())
-                        ?.apply()
-
+                    viewModel.saveSettings(etTaxRate.text.toFloat())
                     hideKeyboard()
                     view.clearFocus()
-                    EventBus.getDefault().post(Event.CheckPrice)
                     true
                 }
                 else -> {
@@ -42,13 +56,5 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
                 }
             }
         }
-
-        etTaxRate.text = SpannableStringBuilder(
-            prefs?.getFloat(TAX_RATE_TAG, 0.0f).toString()
-        )
-    }
-
-    companion object {
-        const val TAX_RATE_TAG = "tax_rate"
     }
 }
