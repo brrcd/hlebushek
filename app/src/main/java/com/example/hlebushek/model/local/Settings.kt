@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "settings")
 data class Settings(
-    @PrimaryKey(autoGenerate = false)
-    val id: Int = 1,
     val taxRate: Float = 0f,
+    @PrimaryKey(autoGenerate = false)
+    val id: Int = 1
 )

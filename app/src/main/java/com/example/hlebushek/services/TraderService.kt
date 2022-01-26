@@ -22,14 +22,8 @@ class TraderService : DaggerService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        runBlocking {
-            log("Service start work.")
-            (Dispatchers.IO) {
-                stocks = repository.getStocksFromDB()
-            }
-        }
-
         job = CoroutineScope(Dispatchers.IO).launch {
+            stocks = repository.getStocksFromDB()
             while (true) {
                 checkLastPrices()
                 delay(5000L)

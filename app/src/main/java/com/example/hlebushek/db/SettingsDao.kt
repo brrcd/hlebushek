@@ -9,8 +9,8 @@ interface SettingsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveSettings(settings: Settings)
 
-    @Query("SELECT 1 FROM settings")
-    fun getSettings(): Settings
+    @Query("SELECT * FROM settings")
+    fun getSettings(): Settings?
 
     @Update
     fun updateSettings(settings: Settings)

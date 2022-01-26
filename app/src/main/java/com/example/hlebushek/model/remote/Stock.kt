@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-@Entity(tableName = "stocks", primaryKeys = ["figi"])
+@Entity(tableName = "stocks")
 @Parcelize
 data class Stock(
     @SerializedName("figi")
@@ -17,5 +17,7 @@ data class Stock(
     @SerializedName("ticker")
     val ticker: String?,
     var purchasePrice: Double? = 0.0,
-    var purchaseDate: String? = ""
+    var purchaseDate: String? = "",
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0
 ) : Parcelable

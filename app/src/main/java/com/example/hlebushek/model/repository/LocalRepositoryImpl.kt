@@ -8,8 +8,9 @@ import javax.inject.Inject
 interface LocalRepository {
     fun addStockToCurrentTrade(stock: Stock)
     fun getStocksFromDB(): List<Stock>
+    fun updateStock(stock: Stock)
     fun saveSettings(settings: Settings)
-    fun getSettings(): Settings
+    fun getSettings(): Settings?
 }
 
 class LocalRepositoryImpl
@@ -27,12 +28,18 @@ class LocalRepositoryImpl
             .stockDao()
             .getStocksFromDB()
 
+    override fun updateStock(stock: Stock) {
+        database
+            .stockDao()
+            .updateStock(stock)
+    }
+
     override fun saveSettings(settings: Settings) =
         database
             .settingsDao()
             .saveSettings(settings)
 
-    override fun getSettings(): Settings =
+    override fun getSettings(): Settings? =
         database
             .settingsDao()
             .getSettings()

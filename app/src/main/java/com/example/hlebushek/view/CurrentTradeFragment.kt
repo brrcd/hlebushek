@@ -24,6 +24,7 @@ import javax.inject.Inject
 class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
     @Inject
     lateinit var viewModel: CurrentTradeViewModel
+
     @Inject
     lateinit var database: StockDatabase
     private val binding by viewBinding(CurrentTradeFragmentBinding::bind)
@@ -47,7 +48,7 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
         }
 
         binding.recyclerView.adapter = adapter
-        viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.getStocksFromD()
     }
 

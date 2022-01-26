@@ -20,7 +20,21 @@ class SettingsViewModel
         liveDataToObserve.value = SettingsAppState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             val settings = repository.getSettings()
-            liveDataToObserve.postValue(SettingsAppState.Success(settings))
+            if (settings == null) {
+                liveDataToObserve.postValue(
+                    SettingsAppState.Success(
+                        Settings(
+                            0.0f
+                        )
+                    )
+                )
+            } else {
+                liveDataToObserve.postValue(
+                    SettingsAppState.Success(
+                        settings
+                    )
+                )
+            }
         }
     }
 
@@ -28,7 +42,7 @@ class SettingsViewModel
         viewModelScope.launch(Dispatchers.IO) {
             repository
                 .saveSettings(
-                    Settings(1, value)
+                    Settings(value)
                 )
         }
     }

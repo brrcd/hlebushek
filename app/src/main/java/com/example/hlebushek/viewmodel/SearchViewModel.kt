@@ -42,26 +42,26 @@ class SearchViewModel
         }
     }
 
-    fun getLastPrice(stock: Stock) {
+    fun getPurchasePriceAndDate(stock: Stock) {
         liveDataToObserve.value = AppState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             val lastPrice = repository.getOrderbookByFigi(stock.figi)?.payload?.lastPrice
-            if (lastPrice == 0.0 || lastPrice == null){
+            if (lastPrice == 0.0 || lastPrice == null) {
                 liveDataToObserve.postValue(
                     AppState.Error("Error while getting last price")
                 )
             } else {
                 stock.purchasePrice = lastPrice
-                stock.purchaseDate = Calendar.getInstance().time.toString()
+                stock.purchaseDate = getCurrentDateAndTime()
                 repository.addStockToCurrentTrade(stock)
-                liveDataToObserve.postValue(AppState.Success(PayloadDTO()))
+                liveDataToObserve.postValue(
+                    AppState.Success(PayloadDTO())
+                )
             }
         }
     }
 
-    fun addStockToDB(stock: Stock) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.addStockToCurrentTrade(stock)
-        }
-    }
+    //todo date format
+    private fun getCurrentDateAndTime(): String =
+        Calendar.getInstance().time.toString()
 }

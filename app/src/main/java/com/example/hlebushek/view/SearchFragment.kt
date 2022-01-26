@@ -1,13 +1,9 @@
 package com.example.hlebushek.view
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.annotation.NonNull
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.hlebushek.AppState
 import com.example.hlebushek.R
@@ -25,16 +21,14 @@ class SearchFragment : DaggerFragment(R.layout.search_fragment) {
     private val binding by viewBinding(SearchFragmentBinding::bind)
     private val adapter by lazy {
         SearchAdapter(delegate = { stock ->
-            viewModel.addStockToDB(stock)
-            //TODO get last price according to successfulness of order
-            viewModel.getLastPrice(stock)
+            viewModel.getPurchasePriceAndDate(stock)
         })
     }
     //TODO price chart on rv item
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         setSearchInputListeners()
         recyclerView.adapter = adapter
     }
@@ -78,10 +72,5 @@ class SearchFragment : DaggerFragment(R.layout.search_fragment) {
                 loadingLayout.setVisible()
             }
         }
-    }
-
-    companion object {
-        const val SEARCH_TAG = "search frag"
-        fun newInstance() = SearchFragment()
     }
 }

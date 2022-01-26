@@ -39,6 +39,8 @@ class CurrentTradeAdapter : RecyclerView.Adapter<CurrentTradeAdapter.CurrentTrad
     inner class CurrentTradeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(stock: Stock) = with(binding) {
             tvStockName.text = stock.name
+            tvStockPurchasePrice.text = stock.purchasePrice.toString()
+            tvStockPurchaseDate.text = stock.purchaseDate
         }
     }
 }

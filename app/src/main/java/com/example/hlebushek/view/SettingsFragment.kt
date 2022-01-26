@@ -19,7 +19,7 @@ class SettingsFragment : DaggerFragment(R.layout.settings_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.getSettings()
 
         setTaxRateSettingListener()

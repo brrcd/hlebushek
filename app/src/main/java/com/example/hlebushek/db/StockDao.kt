@@ -11,4 +11,7 @@ interface StockDao {
 
     @Query("SELECT * FROM stocks")
     fun getStocksFromDB(): List<Stock>
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateStock(stock: Stock)
 }
