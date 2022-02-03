@@ -11,19 +11,8 @@ interface RemoteRepository {
 }
 
 class RemoteRepositoryImpl
-@Inject constructor(
+@Inject  constructor(
+    @Named("V2")
     private val api: TraderApi
-): RemoteRepository {
-
-    override fun getListOfStockMarket(): ApiResponse? {
-        return api.getListOfStocks().execute().body()
-    }
-
-    override fun getCandleByFigi(figi: String, from: String, to: String, interval: String): ApiResponse? {
-        return api.getCandleByFigi(figi, from, to, interval).execute().body()
-    }
-
-    override fun getOrderbook(figi: String, depth: Int): ApiResponse? {
-        return api.getOrderbookByFigi(figi, depth).execute().body()
-    }
+) : RemoteRepository {
 }

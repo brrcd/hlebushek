@@ -16,7 +16,7 @@ class CurrentTradeViewModel
 
     fun getLiveData() = liveDataToObserve
 
-    fun getStocksFromD() {
+    fun getStocksFromDB() {
         liveDataToObserve.value = AppState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {

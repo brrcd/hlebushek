@@ -21,7 +21,6 @@ class SearchFragment : DaggerFragment(R.layout.search_fragment) {
     private val binding by viewBinding(SearchFragmentBinding::bind)
     private val adapter by lazy {
         SearchAdapter(delegate = { stock ->
-            viewModel.getPurchasePriceAndDate(stock)
         })
     }
     //TODO price chart on rv item
@@ -35,12 +34,10 @@ class SearchFragment : DaggerFragment(R.layout.search_fragment) {
 
     private fun setSearchInputListeners() = with(binding) {
         searchInputLayout.setEndIconOnClickListener {
-            viewModel.getListOfStocksByName(searchStockInput.text.toString())
         }
         searchStockInput.setOnEditorActionListener { _, action, _ ->
             when (action) {
                 EditorInfo.IME_ACTION_SEARCH -> {
-                    viewModel.getListOfStocksByName(searchStockInput.text.toString())
                     true
                 }
                 else -> {
