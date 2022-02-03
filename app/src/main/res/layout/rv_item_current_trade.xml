@@ -26,8 +26,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_stock_name"
-        app:layout_constraintEnd_toStartOf="@id/tv_stock_purchase_date"
+        app:layout_constraintEnd_toStartOf="@id/tv_stock_latest_price"
         tools:text="3000.4"/>
+
+    <TextView
+        android:id="@+id/tv_stock_latest_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_stock_purchase_price"
+        app:layout_constraintEnd_toStartOf="@id/tv_stock_purchase_date"
+        tools:text="3001.4"/>
 
     <TextView
         android:id="@+id/tv_stock_purchase_date"
@@ -36,7 +47,7 @@
         android:layout_margin="@dimen/margin_small"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_stock_purchase_price"
+        app:layout_constraintStart_toEndOf="@id/tv_stock_latest_price"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="30.12.2003"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

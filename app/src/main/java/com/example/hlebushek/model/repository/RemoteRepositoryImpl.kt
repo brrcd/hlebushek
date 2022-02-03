@@ -2,12 +2,12 @@ package com.example.hlebushek.model.repository
 
 import com.example.hlebushek.api.TraderApi
 import com.example.hlebushek.model.remote.ApiResponse
+import retrofit2.Call
+import retrofit2.Callback
 import javax.inject.Inject
+import javax.inject.Named
 
 interface RemoteRepository {
-    fun getListOfStockMarket(): ApiResponse?
-    fun getCandleByFigi(figi: String, from: String, to: String, interval: String): ApiResponse?
-    fun getOrderbook(figi: String, depth: Int): ApiResponse?
 }
 
 class RemoteRepositoryImpl

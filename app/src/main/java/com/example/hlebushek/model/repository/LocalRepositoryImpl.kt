@@ -28,11 +28,10 @@ class LocalRepositoryImpl
             .stockDao()
             .getStocksFromDB()
 
-    override fun updateStock(stock: Stock) {
+    override fun updateStock(stock: Stock) =
         database
             .stockDao()
             .updateStock(stock)
-    }
 
     override fun saveSettings(settings: Settings) =
         database

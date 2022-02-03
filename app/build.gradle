@@ -23,8 +23,12 @@ android {
     buildTypes.each {
         Properties properties = new Properties()
         properties.load(project.rootProject.file("traderapi.properties").newDataInputStream())
-        def traderApiKey = properties.getProperty("TRADER_API", "")
-        it.buildConfigField "String", "TRADER_API", traderApiKey
+        def fullAcc_token_v1 = properties.getProperty("FULLACCESS_TOKEN_V1", "")
+        it.buildConfigField "String", "FULLACCESS_TOKEN_V1", fullAcc_token_v1
+        def fullAcc_token_v2 = properties.getProperty("FULLACCESS_TOKEN_V2", "")
+        it.buildConfigField "String", "FULLACCESS_TOKEN_V2", fullAcc_token_v2
+        def readonly_token = properties.getProperty("READONLY_TOKEN", "")
+        it.buildConfigField "String", "READONLY_TOKEN", readonly_token
     }
     buildTypes {
         release {

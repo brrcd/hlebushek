@@ -41,6 +41,7 @@ class CurrentTradeAdapter : RecyclerView.Adapter<CurrentTradeAdapter.CurrentTrad
             tvStockName.text = stock.name
             tvStockPurchasePrice.text = stock.purchasePrice.toString()
             tvStockPurchaseDate.text = stock.purchaseDate
+            tvStockLatestPrice.text = stock.lastCheckedPrice.toString()
         }
     }
 }

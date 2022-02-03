@@ -2,11 +2,14 @@ package com.example.hlebushek.services
 
 import android.content.Intent
 import android.os.IBinder
+import com.example.hlebushek.eventbus.Event
 import com.example.hlebushek.log
 import com.example.hlebushek.model.remote.Stock
 import com.example.hlebushek.model.repository.MainRepository
 import dagger.android.DaggerService
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.asFlow
+import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 class TraderService : DaggerService() {
@@ -32,17 +35,19 @@ class TraderService : DaggerService() {
         return START_STICKY
     }
 
-    private fun checkLastPrices() {
+    private fun checkLastPrices() = with(CoroutineScope(Dispatchers.IO)) {
         log("Service check prices.")
+        // todo stocks as flow, emit request -> onSuccess next request -> on complete Event
+        stocks.asFlow()
         stocks.forEach { stock ->
-            repository.getOrderbookByFigi(stock.figi)?.payload?.lastPrice?.let { log(it) }
         }
+        EventBus.getDefault().post(Event.UpdatePrice)
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         log("Service destroyed.")
         job?.cancel()
+        super.onDestroy()
     }
 
     override fun onBind(intent: Intent?): IBinder? = null

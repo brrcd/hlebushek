@@ -19,13 +19,6 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient() = OkHttpClient.Builder()
-        .addInterceptor { chain ->
-            val origin = chain.request()
-            val requestBuilder = origin.newBuilder()
-                .addHeader("Authorization", "Bearer ${BuildConfig.TRADER_API}")
-            val request = requestBuilder.build()
-            chain.proceed(request)
-        }
         .addNetworkInterceptor(
             HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY

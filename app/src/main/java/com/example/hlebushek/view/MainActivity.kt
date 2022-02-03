@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         stopService(Intent(this, TraderService::class.java))
+        super.onDestroy()
     }
 }
