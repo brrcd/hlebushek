@@ -5,12 +5,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.hlebushek.AppState
+import com.example.hlebushek.states.SearchAppState
 import com.example.hlebushek.R
 import com.example.hlebushek.adapters.CurrentTradeAdapter
 import com.example.hlebushek.databinding.CurrentTradeFragmentBinding
-import com.example.hlebushek.db.StockDatabase
+import com.example.hlebushek.db.TradeDatabase
 import com.example.hlebushek.eventbus.Event
+import com.example.hlebushek.log
 import com.example.hlebushek.services.TraderService
 import com.example.hlebushek.setGone
 import com.example.hlebushek.setVisible
@@ -27,7 +28,7 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
     lateinit var viewModel: CurrentTradeViewModel
 
     @Inject
-    lateinit var database: StockDatabase
+    lateinit var database: TradeDatabase
     private val binding by viewBinding(CurrentTradeFragmentBinding::bind)
     private val adapter by lazy { CurrentTradeAdapter() }
     private var job: Job? = null
@@ -41,8 +42,7 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
-        viewModel.getStocksFromDB()
-
+        viewModel.getSharesFromDB()
         binding.startTradeService.setOnClickListener {
             activity?.startService(Intent(activity, TraderService::class.java))
         }
@@ -53,18 +53,18 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
             job = CoroutineScope(Dispatchers.IO).launch {
                 database.clearAllTables()
             }
-            viewModel.getStocksFromDB()
+            viewModel.getSharesFromDB()
         }
 
     }
 
-    private fun renderData(appState: AppState) = with(binding) {
+    private fun renderData(appState: SearchAppState) = with(binding) {
         when (appState) {
-            is AppState.Success -> {
+            is SearchAppState.Success -> {
                 loadingLayout.setGone()
-                appState.payloadDTO.stockList?.let { adapter.setStockList(it) }
+                adapter.setShareList(appState.listOfShares)
             }
-            is AppState.Error -> {
+            is SearchAppState.Error -> {
                 loadingLayout.setGone()
                 Toast.makeText(
                     requireContext(),
@@ -72,7 +72,7 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            is AppState.Loading -> {
+            is SearchAppState.Loading -> {
                 loadingLayout.setVisible()
             }
         }
@@ -82,16 +82,16 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
     fun onEvent(event: Event) {
         when (event) {
             is Event.UpdatePrice -> {
-                // todo fix issue with only last stock is updated
-                viewModel.getStocksFromDB()
+                log("On event update price.")
+                viewModel.getSharesFromDB()
             }
             is Event.OtherOne -> {}
         }
     }
 
     override fun onStop() {
-        super.onStop()
         EventBus.getDefault().unregister(this)
         job?.cancel()
+        super.onStop()
     }
 }

@@ -1,4 +1,4 @@
-package com.example.hlebushek
+package com.example.hlebushek.states
 
 import com.example.hlebushek.model.local.Settings
 

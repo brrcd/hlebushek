@@ -1,6 +1,6 @@
 package com.example.hlebushek.di
 
-import com.example.hlebushek.model.repository.MainRepositoryImpl
+import com.example.hlebushek.repository.MainRepositoryImpl
 import com.example.hlebushek.viewmodel.CurrentTradeViewModel
 import com.example.hlebushek.viewmodel.SearchViewModel
 import com.example.hlebushek.viewmodel.SettingsViewModel

@@ -3,27 +3,26 @@ package com.example.hlebushek.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.hlebushek.AppState
-import com.example.hlebushek.model.local.PayloadDTO
-import com.example.hlebushek.model.repository.MainRepository
+import com.example.hlebushek.states.SearchAppState
+import com.example.hlebushek.repository.MainRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CurrentTradeViewModel
 @Inject constructor(private val repository: MainRepository) : ViewModel() {
-    private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
+    private val liveDataToObserve: MutableLiveData<SearchAppState> = MutableLiveData()
 
     fun getLiveData() = liveDataToObserve
 
-    fun getStocksFromDB() {
-        liveDataToObserve.value = AppState.Loading
+    fun getSharesFromDB() {
+        liveDataToObserve.value = SearchAppState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {
-            val data = repository.getStocksFromDB()
+            val data = repository.getListOfSharesFromDB()
             liveDataToObserve.postValue(
-                AppState.Success(
-                    PayloadDTO(stockList = data)
+                SearchAppState.Success(
+                    data
                 )
             )
         }

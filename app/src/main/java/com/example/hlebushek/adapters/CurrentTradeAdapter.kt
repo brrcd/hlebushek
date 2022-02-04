@@ -5,16 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hlebushek.databinding.RvItemCurrentTradeBinding
-import com.example.hlebushek.model.remote.Stock
+import com.example.hlebushek.model.local.Share
 
 class CurrentTradeAdapter : RecyclerView.Adapter<CurrentTradeAdapter.CurrentTradeViewHolder>() {
 
     private var _binding: RvItemCurrentTradeBinding? = null
     private val binding get() = _binding!!
-    private var stockList = listOf<Stock>()
+    private var shareList = listOf<Share>()
 
-    fun setStockList(data: List<Stock>) {
-        stockList = data
+    fun setShareList(data: List<Share>) {
+        shareList = data
         notifyDataSetChanged()
     }
 
@@ -29,19 +29,19 @@ class CurrentTradeAdapter : RecyclerView.Adapter<CurrentTradeAdapter.CurrentTrad
     }
 
     override fun onBindViewHolder(holder: CurrentTradeViewHolder, position: Int) {
-        holder.bind(stockList[position])
+        holder.bind(shareList[position])
     }
 
     override fun getItemCount(): Int {
-        return stockList.size
+        return shareList.size
     }
 
     inner class CurrentTradeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(stock: Stock) = with(binding) {
-            tvStockName.text = stock.name
-            tvStockPurchasePrice.text = stock.purchasePrice.toString()
-            tvStockPurchaseDate.text = stock.purchaseDate
-            tvStockLatestPrice.text = stock.lastCheckedPrice.toString()
+        fun bind(share: Share) = with(binding) {
+            tvStockName.text = share.name
+            tvStockPurchasePrice.text = share.purchasePrice.toString()
+//            tvStockPurchaseDate.text = share.purchaseDate
+            tvStockLatestPrice.text = share.lastCheckedPrice.toString()
         }
     }
 }

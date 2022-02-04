@@ -3,18 +3,20 @@ package com.example.hlebushek.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hlebushek.R
 import com.example.hlebushek.databinding.RvItemSearchBinding
-import com.example.hlebushek.model.remote.Stock
+import com.example.hlebushek.model.local.Share
 
-class SearchAdapter(private val delegate: (stock: Stock) -> Unit) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
+class SearchAdapter(private val delegate: (share: Share) -> Unit) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
     private var _binding: RvItemSearchBinding? = null
     private val binding get() = _binding!!
-    private var stockList = listOf<Stock>()
+    private var shareList = listOf<Share>()
 
-    fun setStockList(data: List<Stock>) {
-        stockList = data
+    fun setShareList(data: List<Share>) {
+        shareList = data
         notifyDataSetChanged()
     }
 
@@ -29,18 +31,19 @@ class SearchAdapter(private val delegate: (stock: Stock) -> Unit) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
-        holder.bind(stockList[position], delegate)
+        holder.bind(shareList[position], delegate)
     }
 
     override fun getItemCount(): Int {
-        return stockList.size
+        return shareList.size
     }
 
     inner class SearchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(stock: Stock, delegate: (stock: Stock) -> Unit) = with(binding) {
-            tvStockName.text = stock.name
+        fun bind(share: Share, delegate: (share: Share) -> Unit) = with(binding) {
+            tvStockName.text = share.name
             ivAddStockToCurrentTrade.setOnClickListener {
-                delegate.invoke(stock)
+                delegate.invoke(share)
+                ivAddStockToCurrentTrade.setImageResource(R.drawable.ic_check)
             }
         }
     }

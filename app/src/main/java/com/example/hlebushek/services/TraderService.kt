@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.IBinder
 import com.example.hlebushek.eventbus.Event
 import com.example.hlebushek.log
-import com.example.hlebushek.model.remote.Stock
-import com.example.hlebushek.model.repository.MainRepository
+import com.example.hlebushek.model.local.LastPrice
+import com.example.hlebushek.model.local.Share
+import com.example.hlebushek.repository.MainRepository
 import dagger.android.DaggerService
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.asFlow
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
@@ -16,7 +16,7 @@ class TraderService : DaggerService() {
 
     @Inject
     lateinit var repository: MainRepository
-    private var stocks: List<Stock> = listOf()
+    private var shares: List<Share> = listOf()
     private var job: Job? = null
 
     override fun onCreate() {
@@ -26,21 +26,36 @@ class TraderService : DaggerService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         job = CoroutineScope(Dispatchers.IO).launch {
-            stocks = repository.getStocksFromDB()
+            shares = repository.getListOfSharesFromDB()
             while (true) {
                 checkLastPrices()
-                delay(5000L)
+                delay(10000L)
             }
         }
         return START_STICKY
     }
 
     private fun checkLastPrices() = with(CoroutineScope(Dispatchers.IO)) {
-        log("Service check prices.")
-        // todo stocks as flow, emit request -> onSuccess next request -> on complete Event
-        stocks.asFlow()
-        stocks.forEach { stock ->
+        log("Service check prices. Shares list size is ${shares.size}.")
+        val lastPrices = repository.getListOfLastPrices(shares)
+        lastPrices.forEach {
+            log("Price ${it.price.units}, nano ${it.price.nano}")
         }
+        val myLastPrices = lastPrices.map {
+            LastPrice(
+                it.figi,
+                it.price.units.toDouble()
+            )
+        }
+        shares.forEach { share ->
+            myLastPrices.forEach {
+                if (share.figi == it.figi) {
+                    share.lastCheckedPrice = it.price
+                    log("Price updated for ${share.name}.")
+                }
+            }
+        }
+        repository.updateShares(shares)
         EventBus.getDefault().post(Event.UpdatePrice)
     }
 

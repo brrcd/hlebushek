@@ -1,15 +1,14 @@
-package com.example.hlebushek.model.remote
+package com.example.hlebushek.model.local
 
 import android.os.Parcelable
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-@Entity(tableName = "stocks")
+@Entity(tableName = "shares")
 @Parcelize
-data class Stock(
+data class Share(
     @SerializedName("figi")
     val figi: String,
     @SerializedName("name")

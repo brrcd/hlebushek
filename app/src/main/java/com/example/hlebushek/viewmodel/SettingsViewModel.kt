@@ -3,9 +3,9 @@ package com.example.hlebushek.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
-import com.example.hlebushek.SettingsAppState
+import com.example.hlebushek.states.SettingsAppState
 import com.example.hlebushek.model.local.Settings
-import com.example.hlebushek.model.repository.MainRepository
+import com.example.hlebushek.repository.MainRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject

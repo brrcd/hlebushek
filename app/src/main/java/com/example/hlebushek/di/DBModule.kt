@@ -2,7 +2,7 @@ package com.example.hlebushek.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.hlebushek.db.StockDatabase
+import com.example.hlebushek.db.TradeDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -12,11 +12,11 @@ class DBModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(context: Context): StockDatabase =
+    fun provideDatabase(context: Context): TradeDatabase =
         Room.databaseBuilder(
             context,
-            StockDatabase::class.java,
-            "stock.db"
+            TradeDatabase::class.java,
+            "trade.db"
         )
             .fallbackToDestructiveMigration()
             .build()
