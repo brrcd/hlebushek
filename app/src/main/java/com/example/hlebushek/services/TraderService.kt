@@ -36,22 +36,17 @@ class TraderService : DaggerService() {
     }
 
     private fun checkLastPrices() = with(CoroutineScope(Dispatchers.IO)) {
-        log("Service check prices. Shares list size is ${shares.size}.")
         val lastPrices = repository.getListOfLastPrices(shares)
-        lastPrices.forEach {
-            log("Price ${it.price.units}, nano ${it.price.nano}")
-        }
         val myLastPrices = lastPrices.map {
             LastPrice(
                 it.figi,
-                it.price.units.toDouble()
+                ("${it.price.units}.${it.price.nano.toString().trimEnd('0')}").toDouble()
             )
         }
         shares.forEach { share ->
             myLastPrices.forEach {
                 if (share.figi == it.figi) {
                     share.lastCheckedPrice = it.price
-                    log("Price updated for ${share.name}.")
                 }
             }
         }

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hlebushek.databinding.RvItemCurrentTradeBinding
+import com.example.hlebushek.log
 import com.example.hlebushek.model.local.Share
 
 class CurrentTradeAdapter : RecyclerView.Adapter<CurrentTradeAdapter.CurrentTradeViewHolder>() {
@@ -15,7 +16,7 @@ class CurrentTradeAdapter : RecyclerView.Adapter<CurrentTradeAdapter.CurrentTrad
 
     fun setShareList(data: List<Share>) {
         shareList = data
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, itemCount)
     }
 
     override fun onCreateViewHolder(

@@ -3,6 +3,7 @@ package com.example.hlebushek.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.hlebushek.log
 import com.example.hlebushek.states.SearchAppState
 import com.example.hlebushek.repository.MainRepository
 import kotlinx.coroutines.Dispatchers

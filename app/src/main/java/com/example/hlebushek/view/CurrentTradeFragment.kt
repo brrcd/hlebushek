@@ -38,24 +38,23 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
         EventBus.getDefault().register(this)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.adapter = adapter
+        recyclerView.adapter = adapter
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.getSharesFromDB()
-        binding.startTradeService.setOnClickListener {
+        startTradeService.setOnClickListener {
             activity?.startService(Intent(activity, TraderService::class.java))
         }
-        binding.stopTradeService.setOnClickListener {
+        stopTradeService.setOnClickListener {
             activity?.stopService(Intent(activity, TraderService::class.java))
         }
-        binding.testButton.setOnClickListener {
+        testButton.setOnClickListener {
             job = CoroutineScope(Dispatchers.IO).launch {
                 database.clearAllTables()
             }
             viewModel.getSharesFromDB()
         }
-
     }
 
     private fun renderData(appState: SearchAppState) = with(binding) {
@@ -82,7 +81,6 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
     fun onEvent(event: Event) {
         when (event) {
             is Event.UpdatePrice -> {
-                log("On event update price.")
                 viewModel.getSharesFromDB()
             }
             is Event.OtherOne -> {}
