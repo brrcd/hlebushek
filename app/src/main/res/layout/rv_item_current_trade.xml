@@ -11,11 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_small"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tv_stock_purchase_price"
         tools:text="НефтьГазМясо"/>
 
     <TextView
@@ -23,21 +21,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_small"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_stock_name"
-        app:layout_constraintEnd_toStartOf="@id/tv_stock_latest_price"
+        app:layout_constraintTop_toBottomOf="@id/tv_stock_name"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="3000.4"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_purchase"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/guideline_150dp"/>
+
+    <ImageView
+        android:id="@+id/iv_purchase_to_current_relation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small"
+        android:src="@drawable/ic_equals"
+        app:layout_constraintTop_toTopOf="@id/tv_stock_purchase_price"
+        app:layout_constraintBottom_toBottomOf="@id/tv_stock_purchase_price"
+        app:layout_constraintEnd_toStartOf="@id/gl_purchase"/>
 
     <TextView
         android:id="@+id/tv_stock_latest_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_small"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_stock_purchase_price"
-        app:layout_constraintEnd_toStartOf="@id/tv_stock_purchase_date"
+        app:layout_constraintTop_toTopOf="@id/tv_stock_purchase_price"
+        app:layout_constraintBottom_toBottomOf="@id/tv_stock_purchase_price"
+        app:layout_constraintStart_toEndOf="@id/gl_purchase"
         tools:text="3001.4"/>
 
     <TextView
@@ -45,9 +57,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_small"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_stock_latest_price"
+        app:layout_constraintTop_toTopOf="@id/tv_stock_purchase_price"
+        app:layout_constraintBottom_toBottomOf="@id/tv_stock_purchase_price"
+        app:layout_constraintStart_toEndOf="@id/iv_purchase_to_current_relation"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="30.12.2003"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

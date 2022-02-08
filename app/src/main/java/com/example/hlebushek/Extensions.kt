@@ -36,3 +36,7 @@ fun Context.hideKeyboard(view: View) {
 fun Editable.toFloat(): Float {
     return toString().toFloat()
 }
+
+fun Int.convertToFraction(): Double {
+    return "0.${this.toString().trimEnd('0')}".toDouble()
+}

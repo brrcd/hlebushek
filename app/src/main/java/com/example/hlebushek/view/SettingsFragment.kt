@@ -7,7 +7,7 @@ import android.view.inputmethod.EditorInfo
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.hlebushek.*
 import com.example.hlebushek.databinding.SettingsFragmentBinding
-import com.example.hlebushek.states.SettingsAppState
+import com.example.hlebushek.states.SettingsState
 import com.example.hlebushek.viewmodel.SettingsViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -26,18 +26,18 @@ class SettingsFragment : DaggerFragment(R.layout.settings_fragment) {
         setTaxRateSettingListener()
     }
 
-    private fun renderData(appState: SettingsAppState) = with(binding) {
+    private fun renderData(appState: SettingsState) = with(binding) {
         when (appState) {
-            is SettingsAppState.Success -> {
+            is SettingsState.Success -> {
                 loadingLayout.setGone()
                 etTaxRate.text = SpannableStringBuilder(
                     appState.settings.taxRate.toString()
                 )
             }
-            is SettingsAppState.Error -> {
+            is SettingsState.Error -> {
                 loadingLayout.setGone()
             }
-            is SettingsAppState.Loading -> {
+            is SettingsState.Loading -> {
                 loadingLayout.setVisible()
             }
         }

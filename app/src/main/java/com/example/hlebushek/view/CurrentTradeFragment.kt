@@ -5,16 +5,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.hlebushek.states.SearchAppState
 import com.example.hlebushek.R
 import com.example.hlebushek.adapters.CurrentTradeAdapter
 import com.example.hlebushek.databinding.CurrentTradeFragmentBinding
 import com.example.hlebushek.db.TradeDatabase
 import com.example.hlebushek.eventbus.Event
-import com.example.hlebushek.log
 import com.example.hlebushek.services.TraderService
 import com.example.hlebushek.setGone
 import com.example.hlebushek.setVisible
+import com.example.hlebushek.states.CurrentTradeState
 import com.example.hlebushek.viewmodel.CurrentTradeViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.*
@@ -57,13 +56,17 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
         }
     }
 
-    private fun renderData(appState: SearchAppState) = with(binding) {
+    private fun renderData(appState: CurrentTradeState) = with(binding) {
         when (appState) {
-            is SearchAppState.Success -> {
+            is CurrentTradeState.InitSuccess -> {
                 loadingLayout.setGone()
-                adapter.setShareList(appState.listOfShares)
+                adapter.setItems(appState.listOfShares)
             }
-            is SearchAppState.Error -> {
+            is CurrentTradeState.UpdateSuccess -> {
+                loadingLayout.setGone()
+                adapter.updateItems(appState.listOfShares)
+            }
+            is CurrentTradeState.Error -> {
                 loadingLayout.setGone()
                 Toast.makeText(
                     requireContext(),
@@ -71,7 +74,7 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            is SearchAppState.Loading -> {
+            is CurrentTradeState.Loading -> {
                 loadingLayout.setVisible()
             }
         }
@@ -81,7 +84,7 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
     fun onEvent(event: Event) {
         when (event) {
             is Event.UpdatePrice -> {
-                viewModel.getSharesFromDB()
+                viewModel.updatePrices()
             }
             is Event.OtherOne -> {}
         }

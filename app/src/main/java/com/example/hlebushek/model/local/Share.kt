@@ -3,24 +3,27 @@ package com.example.hlebushek.model.local
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.hlebushek.*
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-@Entity(tableName = "shares")
+@Entity(tableName = SHARES)
 @Parcelize
 data class Share(
-    @SerializedName("figi")
+    @SerializedName(FIGI)
     val figi: String,
-    @SerializedName("name")
+    @SerializedName(NAME)
     val name: String?,
-    @SerializedName("ticker")
+    @SerializedName(TICKER)
     val ticker: String?,
-    @SerializedName("purchasePrice")
-    var purchasePrice: Double? = 0.0,
-    @SerializedName("purchaseDate")
+    @SerializedName(LOT)
+    val lot: Int,
+    @SerializedName(PURCHASE_PRICE)
+    var purchasePrice: Double = 0.0,
+    @SerializedName(PURCHASE_DATE)
     var purchaseDate: String? = "",
-    @SerializedName("lastCheckedPrice")
-    var lastCheckedPrice: Double? = 0.0,
+    @SerializedName(LAST_CHECKED_PRICE)
+    var lastCheckedPrice: Double = 0.0,
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0
 ) : Parcelable

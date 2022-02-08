@@ -3,7 +3,7 @@ package com.example.hlebushek.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
-import com.example.hlebushek.states.SettingsAppState
+import com.example.hlebushek.states.SettingsState
 import com.example.hlebushek.model.local.Settings
 import com.example.hlebushek.repository.MainRepository
 import kotlinx.coroutines.Dispatchers
@@ -12,17 +12,17 @@ import javax.inject.Inject
 
 class SettingsViewModel
 @Inject constructor(private val repository: MainRepository) : ViewModel() {
-    private val liveDataToObserve: MutableLiveData<SettingsAppState> = MutableLiveData()
+    private val liveDataToObserve: MutableLiveData<SettingsState> = MutableLiveData()
 
     fun getLiveData() = liveDataToObserve
 
     fun getSettings() {
-        liveDataToObserve.value = SettingsAppState.Loading
+        liveDataToObserve.value = SettingsState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             val settings = repository.getSettings()
             if (settings == null) {
                 liveDataToObserve.postValue(
-                    SettingsAppState.Success(
+                    SettingsState.Success(
                         Settings(
                             0.0f
                         )
@@ -30,7 +30,7 @@ class SettingsViewModel
                 )
             } else {
                 liveDataToObserve.postValue(
-                    SettingsAppState.Success(
+                    SettingsState.Success(
                         settings
                     )
                 )

@@ -3,8 +3,10 @@ package com.example.hlebushek.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.hlebushek.convertToFraction
+import com.example.hlebushek.log
 import com.example.hlebushek.model.local.Share
-import com.example.hlebushek.states.SearchAppState
+import com.example.hlebushek.states.SearchState
 import com.example.hlebushek.repository.MainRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,30 +15,34 @@ import javax.inject.Inject
 
 class SearchViewModel
 @Inject constructor(private val repository: MainRepository) : ViewModel() {
-    private val liveDataToObserve: MutableLiveData<SearchAppState> = MutableLiveData()
+    private val liveDataToObserve: MutableLiveData<SearchState> = MutableLiveData()
 
     fun getLiveData() = liveDataToObserve
 
     fun addShareToCurrentTrade(share: Share) {
         viewModelScope.launch(Dispatchers.IO) {
-            // todo redo
             val lastPrices = repository.getListOfLastPrices(listOf(share))
-            lastPrices.forEach{
+            lastPrices.forEach {
                 if (it.figi == share.figi)
-                    share.purchasePrice = it.price.units.toDouble()
+                    share.purchasePrice =
+                        it.price.units.toDouble() + it.price.nano.convertToFraction()
             }
             repository.addShareToCurrentTrade(share)
         }
     }
 
     fun getSharesByName(name: String) {
-        liveDataToObserve.value = SearchAppState.Loading
+        liveDataToObserve.value = SearchState.Loading
+
+        // todo remove
+        log(name)
+
         viewModelScope.launch(Dispatchers.IO) {
             val shares = repository.getListOfShares()
             val filteredShares = filterShares(shares, name)
             val mappedShares = mapShareOrBuilderToShare(filteredShares)
             liveDataToObserve.postValue(
-                SearchAppState.Success(
+                SearchState.Success(
                     mappedShares
                 )
             )
@@ -53,7 +59,8 @@ class SearchViewModel
             Share(
                 it.figi,
                 it.name,
-                it.ticker
+                it.ticker,
+                it.lot
             )
         }
 }

@@ -5,7 +5,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.hlebushek.states.SearchAppState
+import com.example.hlebushek.states.SearchState
 import com.example.hlebushek.R
 import com.example.hlebushek.adapters.SearchAdapter
 import com.example.hlebushek.databinding.SearchFragmentBinding
@@ -50,13 +50,13 @@ class SearchFragment : DaggerFragment(R.layout.search_fragment) {
         }
     }
 
-    private fun renderData(appState: SearchAppState) = with(binding) {
+    private fun renderData(appState: SearchState) = with(binding) {
         when (appState) {
-            is SearchAppState.Success -> {
+            is SearchState.Success -> {
                 loadingLayout.setGone()
                 adapter.setShareList(appState.listOfShares)
             }
-            is SearchAppState.Error -> {
+            is SearchState.Error -> {
                 loadingLayout.setGone()
                 Toast.makeText(
                     requireContext(),
@@ -64,7 +64,7 @@ class SearchFragment : DaggerFragment(R.layout.search_fragment) {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            is SearchAppState.Loading -> {
+            is SearchState.Loading -> {
                 loadingLayout.setVisible()
             }
         }

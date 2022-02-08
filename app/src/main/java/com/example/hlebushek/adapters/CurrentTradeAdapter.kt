@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hlebushek.R
 import com.example.hlebushek.databinding.RvItemCurrentTradeBinding
 import com.example.hlebushek.log
 import com.example.hlebushek.model.local.Share
@@ -14,7 +15,12 @@ class CurrentTradeAdapter : RecyclerView.Adapter<CurrentTradeAdapter.CurrentTrad
     private val binding get() = _binding!!
     private var shareList = listOf<Share>()
 
-    fun setShareList(data: List<Share>) {
+    fun setItems(data: List<Share>) {
+        shareList = data
+        notifyDataSetChanged()
+    }
+
+    fun updateItems(data: List<Share>){
         shareList = data
         notifyItemRangeChanged(0, itemCount)
     }
@@ -43,6 +49,10 @@ class CurrentTradeAdapter : RecyclerView.Adapter<CurrentTradeAdapter.CurrentTrad
             tvStockPurchasePrice.text = share.purchasePrice.toString()
 //            tvStockPurchaseDate.text = share.purchaseDate
             tvStockLatestPrice.text = share.lastCheckedPrice.toString()
+            if (share.lastCheckedPrice > share.purchasePrice)
+                ivPurchaseToCurrentRelation.setImageResource(R.drawable.ic_arrow_up)
+            else
+                ivPurchaseToCurrentRelation.setImageResource(R.drawable.ic_arrow_down)
         }
     }
 }
