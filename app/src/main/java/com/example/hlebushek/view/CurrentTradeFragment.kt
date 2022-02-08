@@ -43,10 +43,16 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.getSharesFromDB()
         startTradeService.setOnClickListener {
-            activity?.startService(Intent(activity, TraderService::class.java))
+            if (TraderService.isRunning)
+                activity?.startService(Intent(activity, TraderService::class.java))
+            else
+                Toast.makeText(requireContext(), "Already running.", Toast.LENGTH_SHORT).show()
         }
         stopTradeService.setOnClickListener {
-            activity?.stopService(Intent(activity, TraderService::class.java))
+            if (TraderService.isRunning)
+                activity?.stopService(Intent(activity, TraderService::class.java))
+            else
+                Toast.makeText(requireContext(), "Nothing to stop.", Toast.LENGTH_SHORT).show()
         }
         testButton.setOnClickListener {
             job = CoroutineScope(Dispatchers.IO).launch {

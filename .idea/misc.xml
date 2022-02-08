@@ -6,6 +6,7 @@
         <entry key="../../../../layout/compose-model-1641897215132.xml" value="0.19087837837837837" />
         <entry key="../../../../layout/compose-model-1643187308073.xml" value="2.0" />
         <entry key="..\:/Git/hlebushek/app/src/main/res/menu/bottom_nav_view.xml" value="0.125" />
+        <entry key="app/src/main/res/drawable/avd_anim.xml" value="0.1795" />
         <entry key="app/src/main/res/drawable/ic_dollar_sign_in_black.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_dollar_sign_sell.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_sell.xml" value="0.209375" />
@@ -19,7 +20,7 @@
         <entry key="app/src/main/res/layout/market_recycler_view_item.xml" value="0.75" />
         <entry key="app/src/main/res/layout/rv_item_current_trade.xml" value="0.33" />
         <entry key="app/src/main/res/layout/rv_item_market.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/rv_item_search.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/rv_item_search.xml" value="0.33" />
         <entry key="app/src/main/res/layout/search_fragment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/settings_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/menu/bottom_nav_view.xml" value="0.19322916666666667" />

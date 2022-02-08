@@ -14,6 +14,7 @@ import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
 import ru.tinkoff.piapi.contract.v1.LastPriceOrBuilder
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 
 class TraderService : DaggerService() {
 
@@ -24,6 +25,7 @@ class TraderService : DaggerService() {
 
     override fun onCreate() {
         super.onCreate()
+        isRunning = true
         log("Service created.")
     }
 
@@ -57,15 +59,21 @@ class TraderService : DaggerService() {
         lastPrices.map {
             LastPrice(
                 it.figi,
-                it.price.units.toDouble() + it.price.nano.convertToFraction()
+                it.price.units.toDouble() + it.price.nano.convertToFraction(),
+                it.time.seconds
             )
         }
 
     override fun onDestroy() {
         log("Service destroyed.")
+        isRunning = false
         job?.cancel()
         super.onDestroy()
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
+
+    companion object {
+        var isRunning = false
+    }
 }

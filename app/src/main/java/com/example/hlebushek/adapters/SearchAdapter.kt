@@ -30,15 +30,15 @@ class SearchAdapter(private val delegate: (share: Share) -> Unit) : RecyclerView
         return SearchViewHolder(binding.root)
     }
 
-    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) =
         holder.bind(shareList[position], delegate)
-    }
 
-    override fun getItemCount(): Int {
-        return shareList.size
-    }
+
+    override fun getItemCount(): Int = shareList.size
+
 
     inner class SearchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
         fun bind(share: Share, delegate: (share: Share) -> Unit) = with(binding) {
             tvStockName.text = share.name
             ivAddStockToCurrentTrade.setOnClickListener {

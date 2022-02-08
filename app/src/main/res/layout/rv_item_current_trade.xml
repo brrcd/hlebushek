@@ -59,7 +59,6 @@
         android:layout_margin="@dimen/margin_small"
         app:layout_constraintTop_toTopOf="@id/tv_stock_purchase_price"
         app:layout_constraintBottom_toBottomOf="@id/tv_stock_purchase_price"
-        app:layout_constraintStart_toEndOf="@id/iv_purchase_to_current_relation"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="30.12.2003"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

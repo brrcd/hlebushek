@@ -4,9 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hlebushek.R
+import com.example.hlebushek.*
 import com.example.hlebushek.databinding.RvItemCurrentTradeBinding
-import com.example.hlebushek.log
 import com.example.hlebushek.model.local.Share
 
 class CurrentTradeAdapter : RecyclerView.Adapter<CurrentTradeAdapter.CurrentTradeViewHolder>() {
@@ -20,7 +19,7 @@ class CurrentTradeAdapter : RecyclerView.Adapter<CurrentTradeAdapter.CurrentTrad
         notifyDataSetChanged()
     }
 
-    fun updateItems(data: List<Share>){
+    fun updateItems(data: List<Share>) {
         shareList = data
         notifyItemRangeChanged(0, itemCount)
     }
@@ -35,24 +34,42 @@ class CurrentTradeAdapter : RecyclerView.Adapter<CurrentTradeAdapter.CurrentTrad
         return CurrentTradeViewHolder(binding.root)
     }
 
-    override fun onBindViewHolder(holder: CurrentTradeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CurrentTradeViewHolder, position: Int) =
         holder.bind(shareList[position])
-    }
 
-    override fun getItemCount(): Int {
-        return shareList.size
-    }
+    override fun getItemCount(): Int = shareList.size
 
     inner class CurrentTradeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
         fun bind(share: Share) = with(binding) {
+            log(share.currency)
+            val currency: String = when (share.currency) {
+                "rub" -> {
+                    RUBLE
+                }
+                "usd" -> {
+                    US_DOLLAR
+                }
+                "eur" -> {
+                    EURO
+                }
+                else -> {
+                    "CURRENCY"
+                }
+            }
+            val purchasePrice = "${share.purchasePrice} $currency"
+            val lastCheckedPrice = "${share.lastCheckedPrice} $currency"
             tvStockName.text = share.name
-            tvStockPurchasePrice.text = share.purchasePrice.toString()
+            tvStockPurchasePrice.text = purchasePrice
 //            tvStockPurchaseDate.text = share.purchaseDate
-            tvStockLatestPrice.text = share.lastCheckedPrice.toString()
-            if (share.lastCheckedPrice > share.purchasePrice)
-                ivPurchaseToCurrentRelation.setImageResource(R.drawable.ic_arrow_up)
-            else
-                ivPurchaseToCurrentRelation.setImageResource(R.drawable.ic_arrow_down)
+            tvStockLatestPrice.text = lastCheckedPrice
+            when {
+                share.lastCheckedPrice > share.purchasePrice ->
+                    ivPurchaseToCurrentRelation.setImageResource(R.drawable.ic_arrow_up)
+                share.lastCheckedPrice < share.purchasePrice ->
+                    ivPurchaseToCurrentRelation.setImageResource(R.drawable.ic_arrow_down)
+                else -> ivPurchaseToCurrentRelation.setImageResource(R.drawable.ic_equals)
+            }
         }
     }
 }

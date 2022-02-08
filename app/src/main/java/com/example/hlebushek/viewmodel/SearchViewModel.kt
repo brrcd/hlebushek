@@ -23,9 +23,13 @@ class SearchViewModel
         viewModelScope.launch(Dispatchers.IO) {
             val lastPrices = repository.getListOfLastPrices(listOf(share))
             lastPrices.forEach {
-                if (it.figi == share.figi)
+                if (it.figi == share.figi) {
                     share.purchasePrice =
                         it.price.units.toDouble() + it.price.nano.convertToFraction()
+
+                    // todo remove
+                    log(it.time)
+                }
             }
             repository.addShareToCurrentTrade(share)
         }
@@ -33,9 +37,6 @@ class SearchViewModel
 
     fun getSharesByName(name: String) {
         liveDataToObserve.value = SearchState.Loading
-
-        // todo remove
-        log(name)
 
         viewModelScope.launch(Dispatchers.IO) {
             val shares = repository.getListOfShares()
@@ -60,7 +61,8 @@ class SearchViewModel
                 it.figi,
                 it.name,
                 it.ticker,
-                it.lot
+                it.lot,
+                it.currency
             )
         }
 }

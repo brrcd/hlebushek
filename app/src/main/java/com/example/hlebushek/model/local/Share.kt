@@ -18,6 +18,8 @@ data class Share(
     val ticker: String?,
     @SerializedName(LOT)
     val lot: Int,
+    @SerializedName(CURRENCY)
+    val currency: String,
     @SerializedName(PURCHASE_PRICE)
     var purchasePrice: Double = 0.0,
     @SerializedName(PURCHASE_DATE)
