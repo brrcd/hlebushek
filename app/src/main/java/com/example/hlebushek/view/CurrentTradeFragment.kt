@@ -43,7 +43,7 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.getSharesFromDB()
         startTradeService.setOnClickListener {
-            if (TraderService.isRunning)
+            if (!TraderService.isRunning)
                 activity?.startService(Intent(activity, TraderService::class.java))
             else
                 Toast.makeText(requireContext(), "Already running.", Toast.LENGTH_SHORT).show()

@@ -9,7 +9,8 @@ import com.example.hlebushek.R
 import com.example.hlebushek.databinding.RvItemSearchBinding
 import com.example.hlebushek.model.local.Share
 
-class SearchAdapter(private val delegate: (share: Share) -> Unit) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
+class SearchAdapter(private val delegate: (share: Share) -> Unit) :
+    RecyclerView.Adapter<SearchViewHolder>() {
 
     private var _binding: RvItemSearchBinding? = null
     private val binding get() = _binding!!
@@ -27,7 +28,7 @@ class SearchAdapter(private val delegate: (share: Share) -> Unit) : RecyclerView
         _binding = RvItemSearchBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return SearchViewHolder(binding.root)
+        return SearchViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) =
@@ -35,16 +36,16 @@ class SearchAdapter(private val delegate: (share: Share) -> Unit) : RecyclerView
 
 
     override fun getItemCount(): Int = shareList.size
+}
 
+class SearchViewHolder(private val binding: RvItemSearchBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
-    inner class SearchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-        fun bind(share: Share, delegate: (share: Share) -> Unit) = with(binding) {
-            tvStockName.text = share.name
-            ivAddStockToCurrentTrade.setOnClickListener {
-                delegate.invoke(share)
-                ivAddStockToCurrentTrade.setImageResource(R.drawable.ic_check)
-            }
+    fun bind(share: Share, delegate: (share: Share) -> Unit) = with(binding) {
+        tvStockName.text = share.name
+        ivAddStockToCurrentTrade.setOnClickListener {
+            delegate.invoke(share)
+            ivAddStockToCurrentTrade.setImageResource(com.example.hlebushek.R.drawable.ic_check)
         }
     }
 }
