@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.NonNull
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.hlebushek.R
 import com.example.hlebushek.adapters.CurrentTradeAdapter
@@ -42,6 +43,11 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
         recyclerView.adapter = adapter
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.getSharesFromDB()
+
+        initTestButtons()
+    }
+
+    private fun initTestButtons() = with(binding) {
         startTradeService.setOnClickListener {
             if (!TraderService.isRunning)
                 activity?.startService(Intent(activity, TraderService::class.java))

@@ -2,6 +2,8 @@ package com.example.hlebushek.repository
 
 import com.example.hlebushek.model.local.Settings
 import com.example.hlebushek.model.local.Share
+import ru.tinkoff.piapi.contract.v1.Account
+import ru.tinkoff.piapi.contract.v1.GetMarginAttributesResponse
 import ru.tinkoff.piapi.contract.v1.LastPriceOrBuilder
 import ru.tinkoff.piapi.contract.v1.ShareOrBuilder
 import javax.inject.Inject
@@ -17,6 +19,8 @@ interface MainRepository {
 
     fun getListOfShares(): List<ShareOrBuilder>
     fun getListOfLastPrices(shares : List<Share>): List<LastPriceOrBuilder>
+    fun getAccountId(): List<Account>
+    fun getMarginAttributes(accountId: String): GetMarginAttributesResponse
 }
 
 class MainRepositoryImpl
@@ -47,4 +51,10 @@ class MainRepositoryImpl
 
     override fun getListOfLastPrices(shares : List<Share>): List<LastPriceOrBuilder> =
         remoteRepository.getListOfLastPrices(shares)
+
+    override fun getAccountId(): List<Account> =
+        remoteRepository.getAccountId()
+
+    override fun getMarginAttributes(accountId: String): GetMarginAttributesResponse =
+        remoteRepository.getMarginAttributes(accountId)
 }

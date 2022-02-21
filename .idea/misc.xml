@@ -10,7 +10,7 @@
         <entry key="app/src/main/res/drawable/ic_dollar_sign_in_black.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_dollar_sign_sell.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_sell.xml" value="0.209375" />
-        <entry key="app/src/main/res/layout/current_trade_fragment.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/current_trade_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_current_trade.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_market.xml" value="0.33" />

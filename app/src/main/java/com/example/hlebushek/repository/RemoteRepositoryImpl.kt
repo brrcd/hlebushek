@@ -12,6 +12,9 @@ import javax.inject.Named
 interface RemoteRepository {
     fun getListOfShares(): List<ShareOrBuilder>
     fun getListOfLastPrices(shares : List<Share>): List<LastPriceOrBuilder>
+
+    fun getAccountId(): List<Account>
+    fun getMarginAttributes(accountId: String): GetMarginAttributesResponse
 }
 
 class RemoteRepositoryImpl
@@ -41,5 +44,25 @@ class RemoteRepositoryImpl
             .withInterceptors(ro_interceptor)
             .getLastPrices(request)
         return result.lastPricesList
+    }
+
+    override fun getAccountId(): List<Account> {
+        val stub = UsersServiceGrpc.newBlockingStub(okHttpChannel)
+        val request = GetAccountsRequest.newBuilder()
+            .build()
+        val result = stub
+            .withInterceptors(ro_interceptor)
+            .getAccounts(request)
+        return result.accountsList
+    }
+
+    override fun getMarginAttributes(accountId: String): GetMarginAttributesResponse {
+        val stub = UsersServiceGrpc.newBlockingStub(okHttpChannel)
+        val request = GetMarginAttributesRequest.newBuilder()
+            .setAccountId(accountId)
+            .build()
+        return stub
+            .withInterceptors(ro_interceptor)
+            .getMarginAttributes(request)
     }
 }

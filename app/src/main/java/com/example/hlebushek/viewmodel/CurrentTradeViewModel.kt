@@ -3,6 +3,7 @@ package com.example.hlebushek.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.hlebushek.log
 import com.example.hlebushek.states.SearchState
 import com.example.hlebushek.repository.MainRepository
 import com.example.hlebushek.states.CurrentTradeState
@@ -39,6 +40,26 @@ class CurrentTradeViewModel
                     data
                 )
             )
+        }
+    }
+
+    fun getAccountId(){
+        // todo redo
+        viewModelScope.launch(Dispatchers.IO) {
+            val data = repository.getAccountId()
+            data.forEach {
+                log(it.id)
+            }
+        }
+    }
+
+    fun getMarginAttributes(accountId: String){
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val data = repository.getMarginAttributes(accountId)
+            data.liquidPortfolio.units.let{
+                log(it)
+            }
         }
     }
 }
