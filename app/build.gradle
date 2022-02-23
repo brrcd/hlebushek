@@ -86,7 +86,7 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.38.1'
     kapt 'com.google.dagger:dagger-android-processor:2.38.1'
     // GSON
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.9'
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
@@ -98,17 +98,15 @@ dependencies {
     // LoggingInterceptor
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
     // ViewModel
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     // Navigation
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     // Room
     implementation 'androidx.room:room-runtime:2.4.1'
     implementation 'androidx.room:room-rxjava3:2.4.1'
     kapt 'androidx.room:room-compiler:2.4.1'
-    // EventBus
-    implementation 'org.greenrobot:eventbus:3.3.1'
     // gRPC
     implementation 'io.grpc:grpc-okhttp:1.44.0'
     implementation 'io.grpc:grpc-protobuf-lite:1.44.0'

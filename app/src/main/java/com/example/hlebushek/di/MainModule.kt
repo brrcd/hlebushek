@@ -1,8 +1,8 @@
 package com.example.hlebushek.di
 
 import com.example.hlebushek.repository.*
-import com.example.hlebushek.services.TraderService
 import com.example.hlebushek.view.CurrentTradeFragment
+import com.example.hlebushek.view.MainActivity
 import com.example.hlebushek.view.SearchFragment
 import com.example.hlebushek.view.SettingsFragment
 import dagger.Binds
@@ -28,7 +28,7 @@ interface MainModule {
     fun bindSettingsFragment(): SettingsFragment
 
     @ContributesAndroidInjector
-    fun bindTraderService(): TraderService
+    fun bindMainActivity(): MainActivity
 
     @Binds
     @Singleton
