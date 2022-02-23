@@ -12,8 +12,6 @@ import com.example.hlebushek.model.local.Share
 class SearchAdapter(private val delegate: (share: Share) -> Unit) :
     RecyclerView.Adapter<SearchViewHolder>() {
 
-    private var _binding: RvItemSearchBinding? = null
-    private val binding get() = _binding!!
     private var shareList = listOf<Share>()
 
     fun setShareList(data: List<Share>) {
@@ -25,15 +23,17 @@ class SearchAdapter(private val delegate: (share: Share) -> Unit) :
         parent: ViewGroup,
         viewType: Int
     ): SearchViewHolder {
-        _binding = RvItemSearchBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
+        return SearchViewHolder(
+            RvItemSearchBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
-        return SearchViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) =
         holder.bind(shareList[position], delegate)
-
 
     override fun getItemCount(): Int = shareList.size
 }

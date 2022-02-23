@@ -11,6 +11,7 @@ import com.example.hlebushek.adapters.SearchAdapter
 import com.example.hlebushek.databinding.SearchFragmentBinding
 import com.example.hlebushek.setGone
 import com.example.hlebushek.setVisible
+import com.example.hlebushek.toast
 import com.example.hlebushek.viewmodel.SearchViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -58,11 +59,7 @@ class SearchFragment : DaggerFragment(R.layout.search_fragment) {
             }
             is SearchState.Error -> {
                 loadingLayout.setGone()
-                Toast.makeText(
-                    requireContext(),
-                    appState.errorMessage,
-                    Toast.LENGTH_SHORT
-                ).show()
+                toast(appState.errorMessage)
             }
             is SearchState.Loading -> {
                 loadingLayout.setVisible()

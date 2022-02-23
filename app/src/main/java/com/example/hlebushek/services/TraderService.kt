@@ -43,9 +43,8 @@ class TraderService : DaggerService() {
     private fun checkLastPrices() = with(CoroutineScope(Dispatchers.IO)) {
         log("Price check.")
         val lastPrices = repository.getListOfLastPrices(shares)
-        val myLastPrices = mapLastPriceOrBuilderToLastPrice(lastPrices)
         shares.forEach { share ->
-            myLastPrices.forEach {
+            lastPrices.forEach {
                 if (share.figi == it.figi) {
                     share.lastCheckedPrice = it.price
                 }
@@ -54,15 +53,6 @@ class TraderService : DaggerService() {
         repository.updateShares(shares)
         EventBus.getDefault().post(Event.UpdatePrice)
     }
-
-    private fun mapLastPriceOrBuilderToLastPrice(lastPrices: List<LastPriceOrBuilder>): List<LastPrice> =
-        lastPrices.map {
-            LastPrice(
-                it.figi,
-                it.price.units.toDouble() + it.price.nano.convertToFraction(),
-                it.time.seconds
-            )
-        }
 
     override fun onDestroy() {
         log("Service destroyed.")

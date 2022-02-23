@@ -6,6 +6,7 @@ import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 
 fun View.setGone() {
@@ -39,4 +40,8 @@ fun Editable.toFloat(): Float {
 
 fun Int.convertToFraction(): Double {
     return "0.${this.toString().trimEnd('0')}".toDouble()
+}
+
+fun Fragment.toast(text: String){
+    Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
 }

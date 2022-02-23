@@ -22,13 +22,12 @@ class SearchViewModel
     fun addShareToCurrentTrade(share: Share) {
         viewModelScope.launch(Dispatchers.IO) {
             val lastPrices = repository.getListOfLastPrices(listOf(share))
-            lastPrices.forEach {
-                if (it.figi == share.figi) {
-                    share.purchasePrice =
-                        it.price.units.toDouble() + it.price.nano.convertToFraction()
+            lastPrices.forEach { lastPrice ->
+                if (lastPrice.figi == share.figi) {
+                    share.purchasePrice = lastPrice.price
 
                     // todo remove
-                    log(it.time)
+                    log(lastPrice.time)
                 }
             }
             repository.addShareToCurrentTrade(share)
@@ -41,28 +40,16 @@ class SearchViewModel
         viewModelScope.launch(Dispatchers.IO) {
             val shares = repository.getListOfShares()
             val filteredShares = filterShares(shares, name)
-            val mappedShares = mapShareOrBuilderToShare(filteredShares)
             liveDataToObserve.postValue(
                 SearchState.Success(
-                    mappedShares
+                    filteredShares
                 )
             )
         }
     }
 
-    private fun filterShares(list: List<ShareOrBuilder>, name: String): List<ShareOrBuilder> =
+    private fun filterShares(list: List<Share>, name: String): List<Share> =
         list.filter {
             it.name.lowercase().contains(name.lowercase())
-        }
-
-    private fun mapShareOrBuilderToShare(list: List<ShareOrBuilder>): List<Share> =
-        list.map {
-            Share(
-                it.figi,
-                it.name,
-                it.ticker,
-                it.lot,
-                it.currency
-            )
         }
 }

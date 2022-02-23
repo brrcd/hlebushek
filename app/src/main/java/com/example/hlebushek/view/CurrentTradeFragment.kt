@@ -15,6 +15,7 @@ import com.example.hlebushek.services.TraderService
 import com.example.hlebushek.setGone
 import com.example.hlebushek.setVisible
 import com.example.hlebushek.states.CurrentTradeState
+import com.example.hlebushek.toast
 import com.example.hlebushek.viewmodel.CurrentTradeViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.*
@@ -52,13 +53,13 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
             if (!TraderService.isRunning)
                 activity?.startService(Intent(activity, TraderService::class.java))
             else
-                Toast.makeText(requireContext(), "Already running.", Toast.LENGTH_SHORT).show()
+                toast("Already running")
         }
         stopTradeService.setOnClickListener {
             if (TraderService.isRunning)
                 activity?.stopService(Intent(activity, TraderService::class.java))
             else
-                Toast.makeText(requireContext(), "Nothing to stop.", Toast.LENGTH_SHORT).show()
+                toast("Nothing to stop")
         }
         testButton.setOnClickListener {
             job = CoroutineScope(Dispatchers.IO).launch {
@@ -80,11 +81,7 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
             }
             is CurrentTradeState.Error -> {
                 loadingLayout.setGone()
-                Toast.makeText(
-                    requireContext(),
-                    "Error!",
-                    Toast.LENGTH_SHORT
-                ).show()
+                toast("Error")
             }
             is CurrentTradeState.Loading -> {
                 loadingLayout.setVisible()

@@ -9,8 +9,6 @@ import com.example.hlebushek.model.local.Share
 
 class CurrentTradeAdapter : RecyclerView.Adapter<CurrentTradeViewHolder>() {
 
-    private var _binding: RvItemCurrentTradeBinding? = null
-    private val binding get() = _binding!!
     private var shareList = listOf<Share>()
 
     fun setItems(data: List<Share>) {
@@ -27,10 +25,13 @@ class CurrentTradeAdapter : RecyclerView.Adapter<CurrentTradeViewHolder>() {
         parent: ViewGroup,
         viewType: Int
     ): CurrentTradeViewHolder {
-        _binding = RvItemCurrentTradeBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
+        return CurrentTradeViewHolder(
+            RvItemCurrentTradeBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
-        return CurrentTradeViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CurrentTradeViewHolder, position: Int) =

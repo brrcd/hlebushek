@@ -11,15 +11,15 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Share(
     @SerializedName(FIGI)
-    val figi: String,
+    val figi: String = "",
     @SerializedName(NAME)
-    val name: String?,
+    val name: String = "",
     @SerializedName(TICKER)
-    val ticker: String?,
+    val ticker: String = "",
     @SerializedName(LOT)
-    val lot: Int,
+    val lot: Int = -1,
     @SerializedName(CURRENCY)
-    val currency: String,
+    val currency: String = "",
     @SerializedName(PURCHASE_PRICE)
     var purchasePrice: Double = 0.0,
     @SerializedName(PURCHASE_DATE)
