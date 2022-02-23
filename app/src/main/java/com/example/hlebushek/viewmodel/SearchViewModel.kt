@@ -40,11 +40,7 @@ class SearchViewModel
         viewModelScope.launch(Dispatchers.IO) {
             val shares = repository.getListOfShares()
             val filteredShares = filterShares(shares, name)
-            liveDataToObserve.postValue(
-                SearchState.Success(
-                    filteredShares
-                )
-            )
+            liveDataToObserve.postValue(SearchState.Success(filteredShares))
         }
     }
 

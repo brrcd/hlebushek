@@ -21,29 +21,16 @@ class SettingsViewModel
         viewModelScope.launch(Dispatchers.IO) {
             val settings = repository.getSettings()
             if (settings == null) {
-                liveDataToObserve.postValue(
-                    SettingsState.Success(
-                        Settings(
-                            0.0f
-                        )
-                    )
-                )
+                liveDataToObserve.postValue(SettingsState.Success(Settings(0.0f)))
             } else {
-                liveDataToObserve.postValue(
-                    SettingsState.Success(
-                        settings
-                    )
-                )
+                liveDataToObserve.postValue(SettingsState.Success(settings))
             }
         }
     }
 
     fun saveSettings(value: Float) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository
-                .saveSettings(
-                    Settings(value)
-                )
+            repository.saveSettings(Settings(value))
         }
     }
 }

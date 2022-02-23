@@ -3,12 +3,11 @@ package com.example.hlebushek.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.hlebushek.log
-import com.example.hlebushek.states.SearchState
 import com.example.hlebushek.repository.MainRepository
 import com.example.hlebushek.states.CurrentTradeState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class CurrentTradeViewModel
@@ -22,11 +21,7 @@ class CurrentTradeViewModel
 
         viewModelScope.launch(Dispatchers.IO) {
             val data = repository.getListOfSharesFromDB()
-            liveDataToObserve.postValue(
-                CurrentTradeState.InitSuccess(
-                    data
-                )
-            )
+            liveDataToObserve.postValue(CurrentTradeState.InitSuccess(data))
         }
     }
 
@@ -35,31 +30,29 @@ class CurrentTradeViewModel
 
         viewModelScope.launch(Dispatchers.IO) {
             val data = repository.getListOfSharesFromDB()
-            liveDataToObserve.postValue(
-                CurrentTradeState.UpdateSuccess(
-                    data
-                )
-            )
+            liveDataToObserve.postValue(CurrentTradeState.UpdateSuccess(data))
         }
     }
 
-    fun getAccountId(){
-        // todo redo
-        viewModelScope.launch(Dispatchers.IO) {
-            val data = repository.getAccountId()
-            data.forEach {
-                log(it.id)
-            }
-        }
-    }
-
-    fun getMarginAttributes(accountId: String){
+    fun getMarginAttributes(){
 
         viewModelScope.launch(Dispatchers.IO) {
-            val data = repository.getMarginAttributes(accountId)
-            data.liquidPortfolio.units.let{
-                log(it)
+            var id = ""
+            runBlocking {
+                val accounts =repository.getAccountId()
+                accounts.forEach {
+                    println(it.id)
+                }
+                println(accounts.size)
+                id = accounts[0].id
             }
+            val data = repository.getPortfolio(id)
+            val totalValue =
+                (data.totalAmountShares.units +
+                        data.totalAmountBonds.units +
+                        data.totalAmountCurrencies.units +
+                        data.totalAmountEtf.units).toInt()
+            liveDataToObserve.postValue(CurrentTradeState.InitPortfolio(totalValue))
         }
     }
 }

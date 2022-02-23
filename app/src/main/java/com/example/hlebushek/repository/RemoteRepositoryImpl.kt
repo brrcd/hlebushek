@@ -14,7 +14,7 @@ interface RemoteRepository {
     fun getListOfLastPrices(shares : List<Share>): List<LastPriceOrBuilder>
 
     fun getAccountId(): List<Account>
-    fun getMarginAttributes(accountId: String): GetMarginAttributesResponse
+    fun getPortfolioResponse(accountId: String): PortfolioResponse
 }
 
 class RemoteRepositoryImpl
@@ -56,13 +56,13 @@ class RemoteRepositoryImpl
         return result.accountsList
     }
 
-    override fun getMarginAttributes(accountId: String): GetMarginAttributesResponse {
-        val stub = UsersServiceGrpc.newBlockingStub(okHttpChannel)
-        val request = GetMarginAttributesRequest.newBuilder()
+    override fun getPortfolioResponse(accountId: String): PortfolioResponse {
+        val stub = OperationsServiceGrpc.newBlockingStub(okHttpChannel)
+        val request = PortfolioRequest.newBuilder()
             .setAccountId(accountId)
             .build()
         return stub
             .withInterceptors(ro_interceptor)
-            .getMarginAttributes(request)
+            .getPortfolio(request)
     }
 }

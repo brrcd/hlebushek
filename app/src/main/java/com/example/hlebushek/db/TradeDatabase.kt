@@ -7,7 +7,7 @@ import com.example.hlebushek.model.local.Share
 
 @Database(
     entities = [Share::class, Settings::class],
-    version = 12,
+    version = 13,
     exportSchema = false
 )
 abstract class TradeDatabase : RoomDatabase(){

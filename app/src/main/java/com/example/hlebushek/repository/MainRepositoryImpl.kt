@@ -4,10 +4,7 @@ import com.example.hlebushek.convertToFraction
 import com.example.hlebushek.model.local.LastPrice
 import com.example.hlebushek.model.local.Settings
 import com.example.hlebushek.model.local.Share
-import ru.tinkoff.piapi.contract.v1.Account
-import ru.tinkoff.piapi.contract.v1.GetMarginAttributesResponse
-import ru.tinkoff.piapi.contract.v1.LastPriceOrBuilder
-import ru.tinkoff.piapi.contract.v1.ShareOrBuilder
+import ru.tinkoff.piapi.contract.v1.*
 import javax.inject.Inject
 
 interface MainRepository {
@@ -22,7 +19,7 @@ interface MainRepository {
     fun getListOfShares(): List<Share>
     fun getListOfLastPrices(shares : List<Share>): List<LastPrice>
     fun getAccountId(): List<Account>
-    fun getMarginAttributes(accountId: String): GetMarginAttributesResponse
+    fun getPortfolio(accountId: String): PortfolioResponse
 }
 
 class MainRepositoryImpl
@@ -61,8 +58,8 @@ class MainRepositoryImpl
     override fun getAccountId(): List<Account> =
         remoteRepository.getAccountId()
 
-    override fun getMarginAttributes(accountId: String): GetMarginAttributesResponse =
-        remoteRepository.getMarginAttributes(accountId)
+    override fun getPortfolio(accountId: String): PortfolioResponse =
+        remoteRepository.getPortfolioResponse(accountId)
 
     private fun mapLastPriceOrBuilderToLastPrice(lastPrices: List<LastPriceOrBuilder>): List<LastPrice> =
         lastPrices.map {

@@ -44,6 +44,7 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
         recyclerView.adapter = adapter
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.getSharesFromDB()
+        viewModel.getMarginAttributes()
 
         initTestButtons()
     }
@@ -71,6 +72,9 @@ class CurrentTradeFragment : DaggerFragment(R.layout.current_trade_fragment) {
 
     private fun renderData(appState: CurrentTradeState) = with(binding) {
         when (appState) {
+            is CurrentTradeState.InitPortfolio -> {
+                tvPortfolioTotalValue.text = appState.totalValue.toString()
+            }
             is CurrentTradeState.InitSuccess -> {
                 loadingLayout.setGone()
                 adapter.setItems(appState.listOfShares)
